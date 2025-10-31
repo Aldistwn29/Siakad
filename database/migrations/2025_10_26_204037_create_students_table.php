@@ -21,6 +21,7 @@ return new class extends Migration
 
             $table->unsignedInteger('semester')->default(1);
             $table->year('batch');
+            $table->string('students_number')->unique();
 
             $table->timestamps();
         });

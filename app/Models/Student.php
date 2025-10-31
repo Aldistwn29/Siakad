@@ -14,7 +14,8 @@ class Student extends Model
         'kelas_id',
         'fee_group_id',
         'semester',
-        'batch'
+        'batch',
+        'students_number'
     ];
 
     public function user()
