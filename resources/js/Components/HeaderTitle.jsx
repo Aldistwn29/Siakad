@@ -1,0 +1,11 @@
+export default function HeaderTitle({ title, subtitle, icon: Icon}){
+    return(
+        <div className="flex flex-col">
+            <div className="flex flex-col items-center gap-x-1">
+                <Icon className="size-6"/>
+                <h1 className="text-lg font-bold line-clamp-1 lg:text-2xl">{title}</h1>
+            </div>
+            <p className="text-sm font-medium text-muted-foreground"></p>
+        </div>
+    )
+}
