@@ -1,19 +1,15 @@
-import { Sheet } from "@/Componets/ui/sheet";
-import { SheetTrigger } from "@/Componets/ui/sheet";
-import { Button } from "@/Componets/ui/button";
-import { IconEye } from "@tabler/icons-react";
-import { SheetContent, SheetHeader, SheetTitle } from "@/Componets/ui/sheet";
-import { Title } from "@radix-ui/react-dialog";
-import { Table } from "@/Componets/ui/table";
-import { TableCaption, TableHead, TableRow } from "@/Componets/ui/table";
-import { TableBody, TableCell, TableFooter } from "./ui/table";
+import { Button } from '@/Componets/ui/button';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/Componets/ui/sheet';
+import { Table, TableHead, TableRow } from '@/Componets/ui/table';
+import { IconEye } from '@tabler/icons-react';
+import { TableBody, TableCell, TableFooter } from './ui/table';
 
-export function Grades( {studyResult, grades, name = null} ){
+export function Grades({ studyResult, grades, name = null }) {
     return (
         <Sheet>
             <SheetTrigger asChild>
                 <Button variant="purple" size="sm">
-                    <IconEye className="text-white size-4"/>
+                    <IconEye className="size-4 text-white" />
                 </Button>
             </SheetTrigger>
             <SheetContent side="top">
@@ -40,7 +36,7 @@ export function Grades( {studyResult, grades, name = null} ){
                                     <TableCell className="border">{grade.letter}</TableCell>
                                     <TableCell className="border">{grade.weight_of_value}</TableCell>
                                     <TableCell className="border">{grade.grade}</TableCell>
-                                </TableRow>
+                                </TableRow>;
                             })}
                         </TableBody>
                         <TableFooter>
@@ -55,5 +51,5 @@ export function Grades( {studyResult, grades, name = null} ){
                 </SheetHeader>
             </SheetContent>
         </Sheet>
-    )
+    );
 }

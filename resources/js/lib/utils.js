@@ -1,82 +1,103 @@
-import { router } from "@inertiajs/react";
-import { clsx } from "clsx";
-import { format } from "date-fns";
-import { toast } from "sonner";
-import { twMerge } from "tailwind-merge"
+import { router, usePage } from '@inertiajs/react';
+import { clsx } from 'clsx';
+import { format } from 'date-fns';
+import { toast } from 'sonner';
+import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs) {
-  return twMerge(clsx(inputs));
+    return twMerge(clsx(inputs));
 }
 
-export default function flashMassage(params){
-    return params.props.flash_message;
+// export default function flashMassage(params) {
+//     return params.this.props.flash_message;
+// }
+
+// hooks untuk ambil flash message dari inertia
+export default function useFlashMessage() {
+    const { props } = usePage();
+    return props.flash_message;
 }
 
-export const deleteAction = (url, {classModal, ...options} = {}) => {
-  const defaultOptions = {
-    preserveScroll: true,
-    preserveState: true,
-    onSuccess: (success) => {
-      const flash = flashMassage(success);
-      if(flash){
-        toast[flash.type](flash.message);
-        if(clossModal && typeof closeModal === 'function'){
-          closeModal();
-        }
-      }
-    },
-    ...options
-  };
+// helper untuk langsung memunculkan notifikasi
+// export function showFlashMessage(flash){
+//     if(!flash || !flash.message){
+//         case 'success':
+//             toast.success(flash.message);
+//             break;
+//         case 'error':
+//             toast.success(flash.message);
+//             break;
+//         case 'warning':
+//             toast.success(flash.message);
+//             break;
+//     }
+// }
 
-  router.delete(url, defaultOptions);
-}
+export const deleteAction = (url, { classModal, ...options } = {}) => {
+    const defaultOptions = {
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess: (success) => {
+            const flash = flashMassage(success);
+            if (flash) {
+                toast[flash.type](flash.message);
+                if (clossModal && typeof closeModal === 'function') {
+                    closeModal();
+                }
+            }
+        },
+        ...options,
+    };
 
-export function formatDateIndo = (dateString) => {
-    return format(parseISO(dateString), 'eeee, dd MMMM yyyy', {locale: id});
-}
+    router.delete(url, defaultOptions);
+};
+
+export const formatDateIndo = (dateString) => {
+    return format(parseISO(dateString), 'eeee, dd MMMM yyyy', { locale: id });
+};
 
 export const formatToRupiah = (amount) => {
-  const formatter = new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    maximumFractionDigits: 0,
-    maximumSignificantDigits: 0,
-  });
+    const formatter = new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0,
+        maximumSignificantDigits: 0,
+    });
 
-  return formatter.format(amount);
-}
+    return formatter.format(amount);
+};
 
 export const STUDYPLANSTATUS = {
-  PENDING: 'pending',
-  REJECT: 'reject',
-  APPROVED: 'approve'
+    PENDING: 'pending',
+    REJECT: 'reject',
+    APPROVED: 'approve',
 };
 
 export const STUDYPLANSTATUSVARIANT = {
-  [STUDYPLANSTATUS.PENDING]: 'secondary',
-  [STUDYPLANSTATUS.REJECT]: 'destructive',
-  [STUDYPLANSTATUS.APPROVED]: 'success',
+    [STUDYPLANSTATUS.PENDING]: 'secondary',
+    [STUDYPLANSTATUS.REJECT]: 'destructive',
+    [STUDYPLANSTATUS.APPROVED]: 'success',
 };
 
 export const FEESTATUS = {
-  PENDING: 'tertunda',
-  SUCCESS: 'sukses',
-  FAILED: 'gagal',
+    PENDING: 'tertunda',
+    SUCCESS: 'sukses',
+    FAILED: 'gagal',
 };
 
 export const FEESTATUSVARIANT = {
-  [FEESTATUS.PENDING]: 'secondary',
-  [FEESTATUS.SUCCESS]: 'success',
-  [FEESTATUS.FAILED]: 'destructive',
+    [FEESTATUS.PENDING]: 'secondary',
+    [FEESTATUS.SUCCESS]: 'success',
+    [FEESTATUS.FAILED]: 'destructive',
 };
 
 export const feeCodeGenerator = () => {
-  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
-  let result = '';
-  for(let i = 0; i < 6; i++){
-    const randomIndex = Math.floor(Math.random() * characters.length);
-    result += characters[randomIndex];
-  }
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789';
+    let result = '';
+    for (let i = 0; i < 6; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        result += characters[randomIndex];
+    }
 
-  return result;
-}
+    return result;
+};
