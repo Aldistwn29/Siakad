@@ -16,8 +16,8 @@ import {
 } from '@tabler/icons-react';
 export default function SidebarResponsive({ url }) {
     return (
-        <div className="mt-4 flex flex-1 flex-col">
-            <ul className="flex flex-1 flex-col" role="list">
+        <div className="flex flex-col flex-1 mt-4">
+            <ul className="flex flex-col flex-1" role="list">
                 <NavLink url="#" active={url.startsWith('/admin/dashbord')} title="Dashboard" icon={IconLayout2} />
 
                 <div className="px-3 py-2 text-xs font-medium text-white">Master</div>
@@ -61,7 +61,7 @@ export default function SidebarResponsive({ url }) {
                 />
 
                 <div className="px-3 py-2 text-xs font-medium text-white">Lainnya</div>
-                <NavLink url="#" active={url.startsWith('/logout')} title="Logout" icon={IconLogout2} />
+                <NavLink url={route('logout')} method="post" as="button" active={url.startsWith('/logout')} title="Logout" icon={IconLogout2} />
             </ul>
         </div>
     );

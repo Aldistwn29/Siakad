@@ -33,7 +33,21 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        $user = auth()->user();
+
+        // mapping role ke route name
+        $roleRedirect = [
+            'Admin' => 'admin.dashbord',
+            'Student' => 'students.dashbord',
+            'Teacher' => 'teachers.dashbord',
+            'Operator' => 'operators.dashboard'
+        ];
+
+        // Ambil route sesuai role
+        $role = $user->getRoleNames()->first();
+        $roleRedirect = $roleRedirect[$role] ?? 'dashboard';
+
+        return redirect()->intended($roleRedirect);
     }
 
     /**

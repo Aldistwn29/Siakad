@@ -19,19 +19,19 @@ import {
 
 export default function Sidebar({ url }) {
     return (
-        <nav className="flex flex-1 flex-col">
-            <ul className="flex flex-1 flex-col" role="list">
+        <nav className="flex flex-col flex-1">
+            <ul className="flex flex-col flex-1" role="list">
                 <li className="-mx-6">
                     <Link
                         href="#"
-                        className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-blue-800"
+                        className="flex items-center px-6 py-3 text-sm font-semibold leading-6 text-white gap-x-4 hover:bg-blue-800"
                     >
                         <Avatar>
                             <AvatarFallback>X</AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col text-left">
-                            <span className="truncate font-bold">Anonim</span>
-                            <span className="truncate text-xs">Admin</span>
+                            <span className="font-bold truncate">Anonim</span>
+                            <span className="text-xs truncate">Admin</span>
                         </div>
                     </Link>
                     <li>
@@ -113,7 +113,7 @@ export default function Sidebar({ url }) {
                         />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Lainnya</div>
-                        <NavLink url="#" active={url.startsWith('/logout')} title="Logout" icon={IconLogout2} />
+                        <NavLink url={route('logout')} method="post" as="button" active={url.startsWith('/logout')} title="Logout" icon={IconLogout2} />
                     </li>
                 </li>
             </ul>

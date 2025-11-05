@@ -103,7 +103,7 @@ export default function HeaderStudentLayout({ url }) {
                                             <DropdownMenuItem 
                                                 asChild 
                                                 className="flex items-center gap-2 text-red-600 transition-colors rounded-md cursor-pointer focus:outline-none focus:bg-red-50 hover:bg-red-50 focus:text-red-700">
-                                                <Link href="#" className="flex items-center w-full gap-2">
+                                                <Link href={route('logout')} as="button" method="post" className="flex items-center w-full gap-2">
                                                     <IconLogout2 className="size-4" />
                                                     Logout
                                                 </Link>
