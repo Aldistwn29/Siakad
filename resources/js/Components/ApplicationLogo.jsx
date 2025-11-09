@@ -7,7 +7,7 @@ export default function AplicationLogo({ bgLogo, colorLogo, colorText }) {
             <div
                 className={cn(
                     'flex aspect-square size-12 items-center justify-center rounded-full bg-gradient-to-r text-foreground',
-                    bgLogo
+                    bgLogo,
                 )}
             >
                 <IconSchool className={cn('size-8', colorLogo)} />

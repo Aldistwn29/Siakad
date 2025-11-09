@@ -34,26 +34,31 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        // ambil data academic year aktif
+        $activeYear = AcademicYear::query()->where('is_active', true)->first();
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user()? new UserSingleResource($request->user()) : null,
+                // 'user' => $request->user()? new UserSingleResource($request->user()) : null,
+                'user' => $request->user()
+                    ? (new UserSingleResource($request->user()))->toArray($request)
+                    : null,
             ],
             'flash_message' => fn() => [
                 'type' => $request->session()->get('type'),
                 'message' => $request->session()->get('message'),
             ],
-            'ziggy' => fn () => [
+            'ziggy' => fn() => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
-            'academic_year' => AcademicYear::query()->where('is_active', true)->first(),
-            'checkFee' => fn() => $request->user() && $request->user()->student 
+            'academic_year' => $activeYear,
+            'checkFee' => fn() => $request->user() && $request->user()->student
                 ? Fee::query()
-                    ->where('student_id', auth()->user()->student->id)
-                    ->where('academic_year_id', AcademicYear()->id)
-                    ->where('semester', auth()->user()->student->semester)
-                    ->where('status', FeeStatus::SUKSES->value)
+                ->where('student_id', auth()->user()->student->id)
+                ->where('academic_year_id', $activeYear?->id)
+                ->where('semester', auth()->user()->student->semester)
+                ->where('status', FeeStatus::SUKSES->value)
                 : null
         ];
     }

@@ -1,17 +1,12 @@
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import TextInput from '@/Components/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
-import Dashboard from '../Dashboard';
-import { Children } from 'react';
-import { Alert, AlertDescription } from '@/Components/ui/alert';
-import { Label } from '@/Components/ui/label';
-import { Input } from '@/Components/ui/input';
 import Checkbox from '@/Components/Checkbox';
+import InputError from '@/Components/InputError';
+import { Alert, AlertDescription } from '@/Components/ui/alert';
 import { Button } from '@/Components/ui/button';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import GuestLayout from '@/Layouts/GuestLayout';
+import { useForm } from '@inertiajs/react';
 
 export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -20,7 +15,7 @@ export default function Login({ status, canResetPassword }) {
         remember: false,
     });
 
-    const HandleChange = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         post(route('login'), {
@@ -29,15 +24,12 @@ export default function Login({ status, canResetPassword }) {
     };
 
     return (
-        <div className='w-full lg:grid lg:min-h-screen lg:grid-cols-2'>
+        <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
             {/* side left */}
             <div className="flex flex-col px-4 py-6">
-                <ApplicationLogo
-                    bgLogo='from-blue-500 via-blue-600 to-blue-600'
-                    colorLogo='text-white'
-                />
+                <ApplicationLogo bgLogo="from-blue-500 via-blue-600 to-blue-600" colorLogo="text-white" />
                 <div className="flex flex-col items-center justify-center py-12 lg:py-48">
-                    <div className="flex flex-col w-full gap-6 mx-auto lg:w-1/2">
+                    <div className="mx-auto flex w-full flex-col gap-6 lg:w-1/2">
                         <div className="grid gap-2 text-center">
                             {status && (
                                 <Alert variant="success">
@@ -45,11 +37,16 @@ export default function Login({ status, canResetPassword }) {
                                 </Alert>
                             )}
                             <h1 className="text-3xl font-bold text-foreground">Login</h1>
-                            <p className="text-balance text-muted-foreground">Selamat Datang di website SIAKAD, Silahkan Login terlebih dahulu</p>
-                            <div className="grid gap-6">
+                            <p className="text-balance text-muted-foreground">
+                                Selamat Datang di website SIAKAD, Silahkan Login terlebih dahulu
+                            </p>
+                            {/* Form */}
+                            <form onSubmit={handleSubmit} className="grid gap-6">
                                 {/* Email */}
                                 <div className="grid gap-2">
-                                    <Label htmlFor="email">Email</Label>
+                                    <Label htmlFor="email" className="block text-left">
+                                        Email
+                                    </Label>
                                     <Input
                                         id="email"
                                         type="email"
@@ -61,39 +58,46 @@ export default function Login({ status, canResetPassword }) {
                                     />
                                     {errors.email && <InputError message={errors.email} />}
                                 </div>
-                                {/* End Email */}
+
                                 {/* Password */}
                                 <div className="grid gap-2">
-                                    <div className="flex items-center"></div>
-                                    <Label htmlFor="password">Password</Label>
-                                    <Input id="password"
+                                    <Label htmlFor="password" className="block text-left">
+                                        Password
+                                    </Label>
+                                    <Input
+                                        id="password"
                                         type="password"
                                         name="password"
                                         placeholder="Masukan Password"
-                                        autoComplete="new-password"
+                                        autoComplete="current-password"
                                         value={data.password}
                                         onChange={(e) => setData(e.target.name, e.target.value)}
                                     />
                                     {errors.password && <InputError message={errors.password} />}
                                 </div>
-                                {/* End Password */}
+
                                 {/* Remember */}
-                                <div className="grid gap-2">
-                                    <div className="flex space-x-2 items-top">
-                                        <Checkbox
-                                            id="remember"
-                                            checked={data.remember}
-                                            onCheckedChange={(checked) => setData('remember', checked)}
-                                        />
-                                        <div className="grid gap-1.5 leading-none">
-                                            <Label htmlFor="remember" className="">Ingatkan Saya</Label>
-                                        </div>
-                                        {errors.remember && <InputError message={errors.remember} />}
-                                    </div>
-                                    <Button type="submit" variant="blue" size="xl" className="w-full" disabled={processing}>Login</Button>
+                                <div className="mt-2 flex items-center space-x-2">
+                                    <Checkbox
+                                        id="remember"
+                                        checked={data.remember}
+                                        onCheckedChange={(checked) => setData('remember', checked)}
+                                    />
+                                    <Label htmlFor="remember">Ingatkan Saya</Label>
                                 </div>
-                                {/* End Remember */}
-                            </div>
+
+                                {/* Button Submit */}
+                                <Button
+                                    type="submit"
+                                    variant="blue"
+                                    size="xl"
+                                    className="mt-4 w-full"
+                                    disabled={processing}
+                                >
+                                    Login
+                                </Button>
+                            </form>
+                            {/* End Form */}
                         </div>
                     </div>
                 </div>
@@ -102,10 +106,14 @@ export default function Login({ status, canResetPassword }) {
 
             {/* Side Right */}
             <div className="hidden bg-muted lg:block">
-                <img src='/build/images/bg-login.webp' className='object-cover w-full h-full max-h-screen' alt='login'/>
+                <img
+                    src="/build/images/bg-login.webp"
+                    className="h-full max-h-screen w-full object-cover"
+                    alt="login"
+                />
             </div>
             {/* End Side Right */}
         </div>
     );
 }
-Login.layout = (page) => <GuestLayout children={page} title='Login' />
+Login.layout = (page) => <GuestLayout children={page} title="Login" />;

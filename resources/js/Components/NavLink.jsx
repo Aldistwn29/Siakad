@@ -1,10 +1,12 @@
 import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
-export default function NavLink({ active = false, url = '#', title, icon: Icon, ...props }) {
+export default function NavLink({ active = false, url = '#', title, icon: Icon, method = 'get', as = 'a', ...props }) {
     return (
         <li>
             <Link
                 {...props}
+                method={method}
+                as={as}
                 href={url}
                 className={cn(
                     active ? 'bg-blue-800' : 'hover:bg-blue-800',

@@ -32,22 +32,19 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        if (auth()->user()->hasRole('Admin')) {
+            return redirect()->route('admin.dashbord');
+        }
+        if (auth()->user()->hasRole('Operator')) {
+            return redirect()->route('operators.dashboard');
+        }
+        if (auth()->user()->hasRole('Teacher')) {
+            return redirect()->route('teachers.dashbord');
+        }
+        if (auth()->user()->hasRole('Student')) {
+            return redirect()->route('students.dashbord');
+        }
 
-        $user = auth()->user();
-
-        // mapping role ke route name
-        $roleRedirect = [
-            'Admin' => 'admin.dashbord',
-            'Student' => 'students.dashbord',
-            'Teacher' => 'teachers.dashbord',
-            'Operator' => 'operators.dashboard'
-        ];
-
-        // Ambil route sesuai role
-        $role = $user->getRoleNames()->first();
-        $roleRedirect = $roleRedirect[$role] ?? 'dashboard';
-
-        return redirect()->intended($roleRedirect);
     }
 
     /**
