@@ -24,7 +24,7 @@ class UserSingleResource extends JsonResource
             'has_name' => $this->getRoleNames()->first(),
             'student' => $this->when($this->hasRole('Student'), [
                 'id' => $this->student?->id,
-                'student_number' => $this->student?->student_number,
+                'students_number' => $this->student?->students_number,
                 'batch' => $this->student?->batch,
                 'semester' => $this->student?->semester,
                 'faculty' => [

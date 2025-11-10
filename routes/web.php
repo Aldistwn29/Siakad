@@ -5,9 +5,29 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::redirect('/', 'login');
+Route::get('/', function(){
+    if(auth()->check()){
+        return Inertia::render('dashbord');
+    }else {
+        return Inertia::render('login');
+    }
+});
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    if (auth()->user()->hasRole('Admin')) {
+            return redirect()->route('admin.dashbord');
+        }
+        if (auth()->user()->hasRole('Operator')) {
+            return redirect()->route('operators.dashbord');
+        }
+        if (auth()->user()->hasRole('Teacher')) {
+            return redirect()->route('teachers.dashbord');
+        }
+        if (auth()->user()->hasRole('Student')) {
+            return redirect()->route('students.dashbord');
+        }else{
+            abort(404);
+        }
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

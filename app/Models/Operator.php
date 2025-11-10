@@ -9,7 +9,7 @@ class Operator extends Model
     protected $fillable = [
         'user_id',
         'fakultas_id',
-        'departemen_id',
+        'departement_id',
         'employee_number'
     ];
 

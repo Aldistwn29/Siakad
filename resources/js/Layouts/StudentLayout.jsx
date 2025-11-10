@@ -8,6 +8,8 @@ import HeaderStudentLayout from './HeaderStudentLayout';
 
 export default function StudentLayout({ title, children }) {
     const checkFee = usePage().props.checkFee;
+    const auth = usePage().props.auth.user;
+    console.log('Auth: ', auth);
     const { url } = usePage();
 
     const flash = useFlashMessage();
@@ -22,7 +24,7 @@ export default function StudentLayout({ title, children }) {
             <div className="min-h-full">
                 <div className="bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 pb-32">
                     {/* Headers Layouts */}
-                    <HeaderStudentLayout url={url} />
+                    <HeaderStudentLayout auth={auth} url={url} />
                 </div>
 
                 <main className="-mt-32 px-7 pb-12 lg:px-8">

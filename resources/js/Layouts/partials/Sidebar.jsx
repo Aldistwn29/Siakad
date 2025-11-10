@@ -1,5 +1,5 @@
 import NavLink from '@/Components/NavLink';
-import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Link } from '@inertiajs/react';
 import {
     IconBook,
@@ -21,38 +21,14 @@ import {
 } from '@tabler/icons-react';
 
 export default function Sidebar({ auth, url }) {
+    // hasrole
     const hasRole = (roleName) => {
-        // normalisasi user object dari berbagai struktur auth
-        const user = auth?.data ?? auth;
-        const roles = user?.roles ?? user?.role;
-
-        if (!roles) return false;
-
-        const normalizeRoleName = roleName.toLowerCase();
-
-        // helper untuk ekstrak nama role dari berbagai format
-        const extractRoleName = (role) => {
-            if (typeof role === 'string') return role.toLowerCase();
-            if (typeof role === 'object') return (role.name ?? role.title ?? '').toLowerCase();
-            return '';
-        };
-
-        // handle string role
-        if (typeof roles === 'string') {
-            return roles.toLowerCase() === normalizeRoleName;
-        }
-
-        // Handle array roles
-        if (Array.isArray(roles)) {
-            return roles.some((role) => role && extractRoleName(role) === normalizeRoleName);
-        }
-        // Handle object role (String role dengan property name/title)
-        if (typeof roles === 'object') {
-            return extractRoleName(roles) === normalizeRoleName;
-        }
-
-        return false;
+        if (!auth?.roles) return false;
+        return auth.roles.includes(roleName);
     };
+
+    const getRoleName = () => auth?.roles?.[0] || 'User';
+
     return (
         <nav className="flex flex-1 flex-col">
             <ul className="flex flex-1 flex-col" role="list">
@@ -62,11 +38,12 @@ export default function Sidebar({ auth, url }) {
                         className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-blue-800"
                     >
                         <Avatar>
-                            <AvatarFallback>X</AvatarFallback>
+                            <AvatarImage src={auth.avatar} />
+                            <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col text-left">
-                            <span className="truncate font-bold">Anonim</span>
-                            <span className="truncate text-xs">Admin</span>
+                            <span className="truncate font-bold">{auth.name}</span>
+                            <span className="truncate text-xs">{getRoleName()}</span>
                         </div>
                     </Link>
 
@@ -236,6 +213,7 @@ export default function Sidebar({ auth, url }) {
                         as="button"
                         active={url.startsWith('/logout')}
                         title="Logout"
+                        className="w-full"
                         icon={IconLogout2}
                     />
                 </li>

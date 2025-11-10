@@ -33,4 +33,9 @@ class Fakultas extends Model
     {
         return $this->hasMany(student::class);
     }
+    
+    public function operators()
+    {
+        return $this->hasMany(Operator::class);
+    }
 }

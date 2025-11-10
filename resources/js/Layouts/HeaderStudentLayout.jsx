@@ -1,6 +1,6 @@
 import AplicationLogo from '@/Components/ApplicationLogo';
 import NavigationMenu from '@/Components/NavigationMenu';
-import { Avatar, AvatarFallback } from '@/Components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { DropdownMenu, DropdownMenuSeparator, DropdownMenuTrigger } from '@/Components/ui/dropdown-menu';
 import { cn } from '@/lib/utils';
@@ -9,7 +9,7 @@ import { Link } from '@inertiajs/react';
 import { DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel } from '@radix-ui/react-dropdown-menu';
 import { IconChevronDown, IconLayoutSidebar, IconLogout2, IconX } from '@tabler/icons-react';
 
-export default function HeaderStudentLayout({ url }) {
+export default function HeaderStudentLayout({ url, auth }) {
     return (
         <>
             <Disclosure
@@ -85,13 +85,19 @@ export default function HeaderStudentLayout({ url }) {
                                                 className="data-[state=open]:bg-orange-500 data-[state=open]:text-white"
                                             >
                                                 <Avatar className="size-8 rounded-lg">
+                                                    <AvatarImage src={auth.avatar} />
                                                     <AvatarFallback className="rounded-lg text-blue-700">
-                                                        X
+                                                        {auth.name.substring(0, 1)}
                                                     </AvatarFallback>
                                                 </Avatar>
                                                 <div className="grid flex-1 text-left text-sm leading-tight">
-                                                    <span className="truncate font-semibold">Aldi Setiawan</span>
-                                                    <span className="truncate text-xs">Teknik Informatika</span>
+                                                    <span className="truncate font-semibold">{auth.name}</span>
+                                                    {/* <span className="truncate text-xs">
+                                                        ({auth.student.departemen.name})
+                                                    </span> */}
+                                                    <span className="truncate text-xs">
+                                                        {auth.student.students_number} ({auth.student.classroom.name})
+                                                    </span>
                                                 </div>
                                                 <IconChevronDown className="ml-auto size-4" />
                                             </Button>
@@ -105,15 +111,14 @@ export default function HeaderStudentLayout({ url }) {
                                             <DropdownMenuLabel className="p-0 font-normal">
                                                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                                                     <Avatar className="size-8 rounded-lg">
+                                                        <AvatarImage src={auth.avatar} />
                                                         <AvatarFallback className="rounded-lg text-blue-600">
-                                                            X
+                                                            {auth.name.substring(0, 1)}
                                                         </AvatarFallback>
                                                     </Avatar>
                                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                                        <span className="truncate font-semibold">Aldi Setiawan</span>
-                                                        <span className="truncate font-semibold">
-                                                            aldi.setiawan.com
-                                                        </span>
+                                                        <span className="truncate font-semibold">{auth.name}</span>
+                                                        <span className="truncate font-semibold">{auth.student.students_number} ({auth.student.classroom.name})</span>
                                                     </div>
                                                 </div>
                                             </DropdownMenuLabel>

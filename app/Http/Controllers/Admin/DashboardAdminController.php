@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
+use App\Models\Departemen;
+use App\Models\Fakultas;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Response;
 
 class DashboardAdminController extends Controller
@@ -17,7 +22,13 @@ class DashboardAdminController extends Controller
             'page_settings' => [
                 'title' => 'Dashboard Admin',
                 'subtitle' => 'Menampilkan semua statistika pada platfrom ini'
-            ]
+            ],
+            'count' => [
+                'faculties' => Fakultas::count(),
+                'departments' => Departemen::count(),
+                'classroms' => Kelas::count(),
+                'courses' => Course::count(),
+            ],
         ]);
     }
 }

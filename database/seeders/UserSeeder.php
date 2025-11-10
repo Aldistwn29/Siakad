@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
 
         $operator->operator()->create([
             'fakultas_id' => 1,
-            'departemen_id' => 1,
+            'departement_id' => 1,
             'employee_number' => str()->padLeft(mt_rand(0, 999999), 6, 0),
         ]);
 
