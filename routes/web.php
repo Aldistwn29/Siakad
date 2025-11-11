@@ -7,9 +7,9 @@ use Inertia\Inertia;
 
 Route::get('/', function(){
     if(auth()->check()){
-        return Inertia::render('dashbord');
+        return redirect()->route('dashboard');
     }else {
-        return Inertia::render('login');
+        return redirect()->route('login');
     }
 });
 Route::get('/dashboard', function () {

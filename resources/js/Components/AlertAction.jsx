@@ -13,8 +13,8 @@ import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
 export default function AlertAction({
     trigger,
     action,
-    title = 'Apakah anda benar-benar yakin',
-    description = 'Tindakan ini tidak dapat dibatalkan. Tindakan ini akan menghapus data secara permanen dan menghapus data anda dari server kami.',
+    title = 'Apakah yakin ingin menghapusnya?',
+    description = 'Cancel apabila tidak, Continue apabila ingin menghapusnya.',
 }) {
     return (
         <AlertDialog>

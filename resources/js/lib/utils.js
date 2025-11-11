@@ -1,6 +1,7 @@
 import { router, usePage } from '@inertiajs/react';
 import { clsx } from 'clsx';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
+import { id } from 'date-fns/locale';
 import { toast } from 'sonner';
 import { twMerge } from 'tailwind-merge';
 
@@ -8,30 +9,11 @@ export function cn(...inputs) {
     return twMerge(clsx(inputs));
 }
 
-// export default function flashMassage(params) {
-//     return params.this.props.flash_message;
-// }
-
 // hooks untuk ambil flash message dari inertia
 export default function useFlashMessage() {
     const { props } = usePage();
     return props.flash_message;
 }
-
-// helper untuk langsung memunculkan notifikasi
-// export function showFlashMessage(flash){
-//     if(!flash || !flash.message){
-//         case 'success':
-//             toast.success(flash.message);
-//             break;
-//         case 'error':
-//             toast.success(flash.message);
-//             break;
-//         case 'warning':
-//             toast.success(flash.message);
-//             break;
-//     }
-// }
 
 export const deleteAction = (url, { classModal, ...options } = {}) => {
     const defaultOptions = {
