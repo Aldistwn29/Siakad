@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Enums\MessageTypes;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\FakultasRequest;
 use App\Http\Resources\Admin\FakultasResource;
 use App\Models\Fakultas;
-use Illuminate\Http\Request;
-use Inertia\Inertia;
+use App\Traits\HasFile;
+use Illuminate\Http\RedirectResponse;
+use Inertia;
+use Throwable;
+
+use function App\helpers\flashMessage;
 
 class FakultasController extends Controller
 {
+    use HasFile;
     public function index()
     {
         $fakultas = Fakultas::query()
@@ -36,5 +43,33 @@ class FakultasController extends Controller
                 'direction' => request()->direction ?? '',
             ],
         ]);
+    }
+
+    public function create()
+    {
+        return Inertia('Admin/Fakultas/Create', [
+            'page_settings' => [
+                'title' => 'Tambahkan Fakultas',
+                'subtitle' => 'Buat fakutas baru disini, click simpan dan selesai',
+                'method' => 'POST',
+                'action' => route('admin.fakultas.create')
+            ]
+        ]);
+    }
+
+    public function store(FakultasRequest $request):RedirectResponse
+    {
+        try {
+            Fakultas::create([
+                'name' =>$request->name,
+                'code' => str()->random(6),
+                'logo' => $this->upload_file($request, 'logo', 'fakultas'),
+            ]);
+            flashMessage(MessageTypes::CREATED->message('Fakultas'));
+            return to_route('admin.fakultas.index');
+        } catch (Throwable $e) {
+            flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
+            return to_route('admin.fakultas.index');
+        }
     }
 }
