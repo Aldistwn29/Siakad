@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\StudyPlans;
+use App\Enums\StudyPlansStatus;
 use Illuminate\Database\Eloquent\Model;
 
 class StudenPlan extends Model
@@ -18,7 +18,7 @@ class StudenPlan extends Model
     protected function casts()
     {
         return [
-            'status' => StudyPlans::class,
+            'status' => StudyPlansStatus::class,
         ];
     }
 

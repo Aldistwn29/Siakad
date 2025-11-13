@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\StudyPlans;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
@@ -15,7 +14,7 @@ class Student extends Model
         'fee_group_id',
         'semester',
         'batch',
-        'students_number'
+        'students_number'   
     ];
 
     public function user()
@@ -55,7 +54,7 @@ class Student extends Model
 
     public function studyPlans()
     {
-       return $this->hasMany(StudyPlans::class);
+       return $this->hasMany(StudenPlan::class);
     }
 
     public function studyResults()

@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('departemen_id')->constrained('departemens')->cascadeOnDelete();
             $table->foreignId('facultas_id')->constrained('fakultas')->cascadeOnDelete();
             $table->foreignId('acdemic_year_id')->constrained('academic_years')->cascadeOnDelete();
+
             $table->string('name');
             $table->string('slug')->unique();
             $table->timestamps();

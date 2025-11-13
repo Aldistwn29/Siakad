@@ -14,6 +14,7 @@ class Course extends Model
         'code',
         'name',
         'semester',
+        'credit'
     ];
 
     public function faculty()
