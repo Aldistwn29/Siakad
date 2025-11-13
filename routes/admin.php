@@ -15,6 +15,6 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::post('fakultas/create', 'store')->name('admin.fakultas.store');
         Route::get('fakultas/edit/{fakultas:slug}', 'edit')->name('admin.fakultas.edit');
         Route::put('fakultas/edit/{fakultas:slug}', 'update')->name('admin.fakultas.update');
-        Route::delete('fakultas/delete', 'destroy')->name('admin.fakultas.destroy');
+        Route::delete('fakultas/delete/{fakultas:slug}', 'destroy')->name('admin.fakultas.destroy');
     });
 });

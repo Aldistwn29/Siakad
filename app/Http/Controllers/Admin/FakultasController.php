@@ -10,6 +10,7 @@ use App\Models\Fakultas;
 use App\Traits\HasFile;
 use Illuminate\Http\RedirectResponse;
 use Inertia;
+use Symfony\Component\HttpFoundation\Request;
 use Throwable;
 
 use function App\helpers\flashMessage;
@@ -68,6 +69,49 @@ class FakultasController extends Controller
             flashMessage(MessageTypes::CREATED->message('Fakultas'));
             return to_route('admin.fakultas.index');
         } catch (Throwable $e) {
+            flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
+            return to_route('admin.fakultas.index');
+        }
+    }
+
+    public function edit(Fakultas $fakultas)
+    {
+        return inertia('Admin/Fakultas/Edit', [
+            'page_settings' => [
+                'title' => 'Edit Fakultas',
+                'subtitle' => 'Silahkan edit fakultas disini',
+                'method' => 'PUT',
+                'action' => route('admin.fakultas.edit', $fakultas)
+            ],
+            'fakulties' => $fakultas
+        ]);
+    }
+
+    public function update(Fakultas $fakultas, FakultasRequest $request):RedirectResponse
+    {
+        try{
+            $fakultas->update([
+                'name' => $request->name,
+                'logo' => $this->upload_file($request, $fakultas, 'logo', 'fakultas'),
+            ]);
+            flashMessage(MessageTypes::UPDATED->message('Fakultas'));
+            return to_route('admin.fakultas.index');
+        } catch(Throwable $e) {
+            flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
+            return to_route('admin.fakultas.index');
+        }
+    }
+
+    public function destroy(Fakultas $fakultas):RedirectResponse
+    {
+        try {
+            $this->delete_file($fakultas, 'logo');
+            $fakultas->delete();
+            // message
+            flashMessage(MessageTypes::DELETED->message('Fakultas'));
+            return to_route('admin.fakultas.index');
+        } catch (\Throwable $e) {
+            // message
             flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
             return to_route('admin.fakultas.index');
         }

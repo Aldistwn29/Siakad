@@ -23,7 +23,7 @@ export const deleteAction = (url, { classModal, ...options } = {}) => {
             const flash = flashMassage(success);
             if (flash) {
                 toast[flash.type](flash.message);
-                if (clossModal && typeof closeModal === 'function') {
+                if (classModal && typeof classModal === 'function') {
                     closeModal();
                 }
             }
