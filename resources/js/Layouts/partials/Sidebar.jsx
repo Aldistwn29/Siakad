@@ -66,7 +66,7 @@ export default function Sidebar({ auth, url }) {
                                 icon={IconBuildingSkyscraper}
                             />
                             <NavLink
-                                url="#"
+                                url={route('admin.departemen.index')}
                                 active={url.startsWith('/admin/departments')}
                                 title="Departemen"
                                 icon={IconSchool}
