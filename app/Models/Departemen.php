@@ -43,12 +43,12 @@ class Departemen extends Model
     // fungsi untuk scopeFilter
     public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->whereAny([
-                'name',
-                'code'
-            ], 'REGEXP', $search)
-                ->orWhereHas('faculty', fn($query) => $query->where('name', 'REGEXP', $search));
+        $query->when($filters['search'] ?? null, function($query, $search) {
+            $query->where(function($query) use ($search){
+                $query->where('name', 'REGEXP', $search)
+                    ->orWhere('name', 'REGEXP', $search)
+                    ->orWhereHas('faculty', fn($query) => $query->where('name', 'REGEXP', $search));
+            });
         });
     }
     public function scopeSorting(Builder $query, array $sorts): void

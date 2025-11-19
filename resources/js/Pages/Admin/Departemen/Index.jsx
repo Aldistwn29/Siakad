@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/ui/table";
 import UseFilter from "@/hooks/useFilter";
 import AppLayout from "@/Layouts/AppLayout";
-import { formatDateIndo } from "@/lib/utils";
+import { deleteAction, formatDateIndo } from "@/lib/utils";
 import { Link, router } from "@inertiajs/react";
 import { IconArrowsDownUp, IconBuildingSkyscraper, IconPencil, IconPlus, IconRefresh, IconTrash } from "@tabler/icons-react";
 import { useState } from "react";

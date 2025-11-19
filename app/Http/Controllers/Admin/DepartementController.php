@@ -80,4 +80,53 @@ class DepartementController extends Controller
             return to_route('admin.departemen.index');
         }
     }
+
+    public function edit(Departemen $departemen){
+        return inertia('Admin/Departemen/Edit',[
+            'page_settings' => [
+                'title' => 'Edit program studi',
+                'subtitle' => 'Edit program studi terbaru, click simpan dan selesai',
+                'method' => 'PUT',
+                'action' => route('admin.departemen.update', $departemen)
+            ],
+            'departemen' => $departemen,
+            'faculties' => Fakultas::query()
+                ->select(['id', 'name'])
+                ->orderBy('name')
+                ->get()
+                ->map(fn($item) => [
+                    'id' => $item->id,
+                    'value' => $item->id,
+                    'label' => $item->name,
+                ]),
+        ]);
+    }
+
+    public function update(Departemen $departemen, DepartemenRequest $request): RedirectResponse
+    {
+        try {
+            $departemen->update([
+                'fakultas_id' => $request->fakultas_id,
+                'name' => $request->name,
+            ]);
+            // message sukses
+            flashMessage(MessageTypes::UPDATED->message('Program studi'));
+            return to_route('admin.departemen.index');
+        } catch (\Throwable $e) {
+            flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
+            return to_route('admin.departemen.index');
+        }
+    }
+
+    public function destroy(Departemen $departemen)
+    {
+        try {
+            $departemen->delete();
+            flashMessage(MessageTypes::DELETED->message('Program studi'));
+            return to_route('admin.departemen.index');
+        } catch (\Throwable $e) {
+            flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
+            return to_route('admin.departemen.index');
+        }
+    }
 }
