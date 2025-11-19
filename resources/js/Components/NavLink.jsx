@@ -2,7 +2,6 @@ import { cn } from '@/lib/utils';
 import { Link } from '@inertiajs/react';
 export default function NavLink({ active = false, url = '#', title, icon: Icon, method = 'get', as = 'a', ...props }) {
     return (
-        <li>
             <Link
                 {...props}
                 method={method}
@@ -17,6 +16,5 @@ export default function NavLink({ active = false, url = '#', title, icon: Icon, 
                 <Icon className="size-6" />
                 {title}
             </Link>
-        </li>
     );
 }
