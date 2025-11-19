@@ -35,7 +35,12 @@ export const deleteAction = (url, { classModal, ...options } = {}) => {
 };
 
 export const formatDateIndo = (dateString) => {
-    return format(parseISO(dateString), 'eeee, dd MMMM yyyy', { locale: id });
+    if(!dateString) return '-';
+    try {
+        return format(parseISO(dateString), 'eeee, dd MMMM yyyy', { locale: id });
+    } catch (error) {
+        return '-';
+    }
 };
 
 export const formatToRupiah = (amount) => {

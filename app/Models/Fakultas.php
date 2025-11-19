@@ -38,7 +38,7 @@ class Fakultas extends Model
 
     public function depertemens()
     {
-        return $this->hasMany(Departemen::class);
+        return $this->hasMany(Departemen::class, 'fakultas_id', 'id');
     }
 
     public function students()
