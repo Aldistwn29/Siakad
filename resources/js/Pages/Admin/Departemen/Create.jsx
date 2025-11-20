@@ -1,19 +1,19 @@
-import HeaderTitle from "@/Components/HeaderTitle";
-import { Button } from "@/Components/ui/button";
-import { Card, CardContent } from "@/Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
-import AppLayout from "@/Layouts/AppLayout"
-import useFlashMessage from "@/lib/utils";
-import { Link, useForm } from "@inertiajs/react"
-import { IconArrowLeft, IconBuildingSkyscraper, IconCheck, IconRefresh } from "@tabler/icons-react";
+import HeaderTitle from '@/Components/HeaderTitle';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent } from '@/Components/ui/card';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import AppLayout from '@/Layouts/AppLayout';
+import useFlashMessage from '@/lib/utils';
+import { Link, useForm } from '@inertiajs/react';
+import { IconArrowLeft, IconBuildingSkyscraper, IconCheck, IconRefresh } from '@tabler/icons-react';
 
 export default function Create(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
         fakultas_id: null,
         name: '',
-        _method: props.page_settings.method
+        _method: props.page_settings.method,
     });
 
     // handle change
@@ -27,23 +27,23 @@ export default function Create(props) {
             onSuccess: (success) => {
                 const flash = useFlashMessage(success);
                 if (flash) toast[flash.type](flash.message);
-            }
-        })
-    }
+            },
+        });
+    };
 
-    // handle reset 
+    // handle reset
     const handleReset = () => reset();
 
     return (
-        <div className="flex flex-col w-full pb-32">
-            <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
+        <div className="flex w-full flex-col pb-32">
+            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
                     icon={IconBuildingSkyscraper}
                 />
                 <Button asChild variant="orange" className="w-full lg:w-auto" size="xl">
-                    <Link href={route("admin.departemen.index")}>
+                    <Link href={route('admin.departemen.index')}>
                         <IconArrowLeft className="size-4" />
                         Kembali
                     </Link>
@@ -57,11 +57,12 @@ export default function Create(props) {
                                 <Label htmlFor="fakultas_id">Fakultas</Label>
                                 <Select
                                     defaultValue={String(data.fakultas_id)}
-                                    onValueChange={(value) => setData("fakultas_id", value)}
+                                    onValueChange={(value) => setData('fakultas_id', value)}
                                 >
                                     <SelectTrigger>
                                         <SelectValue>
-                                            {props.faculties.find((faculty) => faculty.value == data.fakultas_id)?.label ?? 'Pilih fakultas'}
+                                            {props.faculties.find((faculty) => faculty.value == data.fakultas_id)
+                                                ?.label ?? 'Pilih fakultas'}
                                         </SelectValue>
 
                                         <SelectContent>
@@ -77,25 +78,32 @@ export default function Create(props) {
                             </div>
                             <div className="col-span-full">
                                 <Label htmlFor="name">Nama</Label>
-                                <Input type="text" name="name" id="name" value={data.name} onChange={onhandleChange} palceholder="Masukkan nama progrm studi" />
+                                <Input
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    value={data.name}
+                                    onChange={onhandleChange}
+                                    palceholder="Masukkan nama progrm studi"
+                                />
                                 {errors.name && <Input message={errors.name} />}
                             </div>
                         </div>
-                            <div className="flex flex-col gap-2 mt-8 lg:flex-row lg:justify-end">
-                                <Button variant="red" size="xl" type="submit" onClick={handleReset}>
-                                    <IconRefresh className="size-4" />
-                                    Reset
-                                </Button>
-                                <Button variant="blue" size="xl" type="submit" disabled={processing}>
-                                    <IconCheck className="size-4" />
-                                    Save
-                                </Button>
-                            </div>
+                        <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
+                            <Button variant="red" size="xl" type="submit" onClick={handleReset}>
+                                <IconRefresh className="size-4" />
+                                Reset
+                            </Button>
+                            <Button variant="blue" size="xl" type="submit" disabled={processing}>
+                                <IconCheck className="size-4" />
+                                Save
+                            </Button>
+                        </div>
                     </form>
                 </CardContent>
             </Card>
         </div>
-    )
+    );
 }
 
-Create.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />
+Create.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;

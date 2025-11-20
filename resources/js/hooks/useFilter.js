@@ -11,7 +11,7 @@ export default function UseFilter({ route, values, only, wait = 300 }) {
                 only: only,
                 preserveScroll: true,
                 preserveState: true,
-                replace:true,
+                replace: true,
             });
         }, wait),
         [route, only, wait],

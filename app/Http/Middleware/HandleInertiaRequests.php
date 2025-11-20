@@ -38,6 +38,7 @@ class HandleInertiaRequests extends Middleware
         $activeYear = AcademicYear::query()->where('is_active', true)->first();
         return [
             ...parent::share($request),
+            'csrf_token' => csrf_token(),
             'auth' => [
                 // 'user' => $request->user()? new UserSingleResource($request->user()) : null,
                 'user' => $request->user()

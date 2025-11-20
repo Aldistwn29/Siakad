@@ -20,7 +20,7 @@ export const deleteAction = (url, { classModal, ...options } = {}) => {
         preserveScroll: true,
         preserveState: true,
         onSuccess: (success) => {
-            const flash = flashMassage(success);
+            const flash = flashMassage();
             if (flash) {
                 toast[flash.type](flash.message);
                 if (classModal && typeof classModal === 'function') {
@@ -35,7 +35,7 @@ export const deleteAction = (url, { classModal, ...options } = {}) => {
 };
 
 export const formatDateIndo = (dateString) => {
-    if(!dateString) return '-';
+    if (!dateString) return '-';
     try {
         return format(parseISO(dateString), 'eeee, dd MMMM yyyy', { locale: id });
     } catch (error) {
