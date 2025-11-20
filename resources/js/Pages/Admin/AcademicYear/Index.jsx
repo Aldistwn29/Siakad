@@ -15,6 +15,7 @@ import { Link, router } from '@inertiajs/react';
 import {
     IconArrowsDownUp,
     IconBuildingSkyscraper,
+    IconCalendar,
     IconPencil,
     IconPlus,
     IconRefresh,
@@ -23,21 +24,21 @@ import {
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: departemen, meta, links } = props.departements;
+    const { data: academic_years, meta, links } = props.academic_years;
     const [params, setParams] = useState(props.state);
     // --- Hooks Filter (debounce 300ms)
     UseFilter({
-        route: route('admin.departemen.index'),
+        route: route('admin.academic_year.index'),
         values: params,
-        only: ['departemen'],
+        only: ['acadmic_years'],
     });
 
     const onSortable = (field) => {
         const direction = params.field === field && params.direction === 'asc' ? 'desc' : 'asc';
         const updated = { ...params, field, direction };
 
-        router.get(route('admin.departemen.index'), updated, {
-            only: ['departemen'],
+        router.get(route('admin.academic_year.index'), updated, {
+            only: ['academic_years'],
             preserveScroll: true,
             preserveState: true,
             replace: true,
@@ -47,8 +48,8 @@ export default function Index(props) {
     const handleReset = () => {
         const reset = { ...props.state, search: '', field: '', direction: '', load: 10 };
         setParams(reset);
-        router.get(route('admin.departemen.index'), reset, {
-            only: ['departemen'],
+        router.get(route('admin.academic_year.index'), reset, {
+            only: ['academic_years'],
             preserveScroll: true,
             preserveState: true,
             replace: true,
@@ -61,24 +62,24 @@ export default function Index(props) {
     };
 
     return (
-        <div className="flex w-full flex-col pb-32">
-            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
+        <div className="flex flex-col w-full pb-32">
+            <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconBuildingSkyscraper}
+                    icon={IconCalendar}
                 />
                 <Button asChild variant="orange" size="xl" className="w-full lg:w-auto">
-                    <Link href={route('admin.departemen.create')}>
+                    <Link href={route('admin.academic_year.create')}>
                         <IconPlus className="size-4" />
                         Tambah
                     </Link>
                 </Button>
             </div>
-            {/* Cardh */}
+            {/* Card */}
             <Card>
-                <CardHeader className="mb-4 p-0">
-                    <div className="flex w-full flex-col items-center gap-4 px-6 py-4 lg:flex-row">
+                <CardHeader className="p-0 mb-4">
+                    <div className="flex flex-col items-center w-full gap-4 px-6 py-4 lg:flex-row">
                         <Input
                             className="w-full sm:w-1/3"
                             placeholder="Cari berdasarkan program studi..."
@@ -112,11 +113,11 @@ export default function Index(props) {
                 </CardHeader>
 
                 <CardContent className="pb-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
-                    {departemen.length === 0 ? (
+                    {academic_years.length === 0 ? (
                         <EmptyState
-                            title="Data kosong"
-                            subtitle="Silahkan untuk menambahkan data baru"
-                            icon={IconBuildingSkyscraper}
+                            title="Tidak ada data tahun ajaran"
+                            subtitle="Silahkan untuk menambahkan data tahun ajaran baru"
+                            icon={IconCalendar}
                         />
                     ) : (
                         <Table className="w-full">
@@ -126,35 +127,35 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="group inline-flex"
-                                            onClick={() => onSortable('fakultas_id')}
-                                        >
-                                            Fakultas
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
-                                                <IconArrowsDownUp className="size-4" />
-                                            </span>
-                                        </Button>
-                                    </TableHead>
-                                    <TableHead>
-                                        Name
-                                        <Button
-                                            variant="ghost"
-                                            className="group inline-flex"
+                                            className="inline-flex group"
                                             onClick={() => onSortable('name')}
                                         >
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            Nama
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
                                     <TableHead>
-                                        Code
+                                        Tanggal Mulai
                                         <Button
                                             variant="ghost"
-                                            className="group inline-flex"
-                                            onClick={() => onSortable('code')}
+                                            className="inline-flex group"
+                                            onClick={() => onSortable('start_date')}
                                         >
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    <TableHead>
+                                        Tanggal Berakhir
+                                        <Button
+                                            variant="ghost"
+                                            className="inline-flex group"
+                                            onClick={() => onSortable('end_date')}
+                                        >
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -163,10 +164,10 @@ export default function Index(props) {
                                         Dibuat pada
                                         <Button
                                             variant="ghost"
-                                            className="group inline-flex"
+                                            className="inline-flex group"
                                             onClick={() => onSortable('created_at')}
                                         >
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -175,17 +176,17 @@ export default function Index(props) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {departemen.map((departemen, index) => (
+                                {academic_years.map((academic_year, index) => (
                                     <TableRow key={index}>
                                         <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                        <TableCell>{departemen.faculty.name}</TableCell>
-                                        <TableCell>{departemen.name}</TableCell>
-                                        <TableCell>{departemen.code}</TableCell>
-                                        <TableCell>{formatDateIndo(departemen.created_at)}</TableCell>
+                                        <TableCell>{academic_year.name}</TableCell>
+                                        <TableCell>{formatDateIndo(academic_year.start_date)}</TableCell>
+                                        <TableCell>{formatDateIndo(academic_year.end_date)}</TableCell>
+                                        <TableCell>{formatDateIndo(academic_year.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
                                                 <Button variant="blue" size="sm" asChild>
-                                                    <Link href={route('admin.departemen.edit', [departemen])}>
+                                                    <Link href={route('admin.academic_year.edit', [academic_year])}>
                                                         <IconPencil className="size-4" />
                                                     </Link>
                                                 </Button>
@@ -196,7 +197,7 @@ export default function Index(props) {
                                                         </Button>
                                                     }
                                                     action={() =>
-                                                        deleteAction(route('admin.departemen.destroy', [departemen]))
+                                                        deleteAction(route('admin.academic_year.destroy', [academic_year]))
                                                     }
                                                 />
                                             </div>
@@ -208,10 +209,10 @@ export default function Index(props) {
                     )}
                 </CardContent>
 
-                <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
+                <CardFooter className="flex flex-col items-center justify-between w-full py-3 border-t gap-y-2 lg:flex-row">
                     <p className="text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
-                        {meta.total} Program studi
+                        {meta.total} Tahun Ajaran
                     </p>
                     <div className="overflow-x-auto">
                         {meta.has_pages && <PaginationTable meta={meta} links={links} />}
@@ -222,4 +223,4 @@ export default function Index(props) {
     );
 }
 
-Index.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
+Index.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />

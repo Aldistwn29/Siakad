@@ -118,7 +118,10 @@ export default function HeaderStudentLayout({ url, auth }) {
                                                     </Avatar>
                                                     <div className="grid flex-1 text-left text-sm leading-tight">
                                                         <span className="truncate font-semibold">{auth.name}</span>
-                                                        <span className="truncate font-semibold">{auth.student.students_number} ({auth.student.classroom.name})</span>
+                                                        <span className="truncate font-semibold">
+                                                            {auth.student.students_number} (
+                                                            {auth.student.classroom.name})
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </DropdownMenuLabel>

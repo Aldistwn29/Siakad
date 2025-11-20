@@ -14,7 +14,7 @@ export default function AlertAction({
     trigger,
     action,
     title = 'Apakah yakin ingin menghapusnya?',
-    description = 'Cancel apabila tidak, Continue apabila ingin menghapusnya.',
+    description = '',
 }) {
     return (
         <AlertDialog>

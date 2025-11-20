@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AcademicYearController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\FakultasController;
@@ -27,5 +28,14 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('departemen/edit/{departemen:slug}', 'edit')->name('admin.departemen.edit');
         Route::put('departemen/edit/{departemen:slug}', 'update')->name('admin.departemen.update');
         Route::delete('departemen/delete/{departemen:slug}', 'destroy')->name('admin.departemen.destroy');
+    });
+    // fitur akademik year
+    Route::controller(AcademicYearController::class)->group(function () {
+        Route::get('academic_year', 'index')->name('admin.academic_year.index');
+        Route::get('academic_year/create', 'create')->name('admin.academic_year.create');
+        Route::post('academic_year/create', 'store')->name('admin.academic_year.store');
+        Route::get('academic_year/edit/{academic_year:slug}', 'edit')->name('admin.academic_year.edit');
+        Route::put('academic_year/edit/{academic_year:slug}', 'update')->name('admin.academic_year.update');
+        Route::delete('academic_year/delete/{academic_year:slug}', 'destroy')->name('admin.academic_year.destroy');
     });
 });

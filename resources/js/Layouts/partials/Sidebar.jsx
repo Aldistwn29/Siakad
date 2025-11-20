@@ -72,7 +72,7 @@ export default function Sidebar({ auth, url }) {
                                 icon={IconSchool}
                             />
                             <NavLink
-                                url="#"
+                                url={route('admin.academic_year.index')}
                                 active={url.startsWith('/admin/academic-years')}
                                 title="Akademik Year"
                                 icon={IconCalendar}

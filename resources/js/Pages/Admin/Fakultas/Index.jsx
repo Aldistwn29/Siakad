@@ -1,18 +1,18 @@
-import AlertAction from "@/Components/AlertAction";
-import EmptyState from "@/Components/EmptyState";
-import HeaderTitle from "@/Components/HeaderTitle";
-import PaginationTable from "@/Components/PaginationTable";
-import ShowFilter from "@/Components/ShowFilter";
-import { Avatar, AvatarFallback, AvatarImage } from "@/Components/ui/avatar";
-import { Button } from "@/Components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/Components/ui/table";
-import UseFilter from "@/hooks/useFilter";
-import AppLayout from "@/Layouts/AppLayout";
-import { deleteAction, formatDateIndo } from "@/lib/utils";
-import { Link, router } from "@inertiajs/react";
+import AlertAction from '@/Components/AlertAction';
+import EmptyState from '@/Components/EmptyState';
+import HeaderTitle from '@/Components/HeaderTitle';
+import PaginationTable from '@/Components/PaginationTable';
+import ShowFilter from '@/Components/ShowFilter';
+import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
+import { Input } from '@/Components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/Components/ui/table';
+import UseFilter from '@/hooks/useFilter';
+import AppLayout from '@/Layouts/AppLayout';
+import { deleteAction, formatDateIndo } from '@/lib/utils';
+import { Link, router } from '@inertiajs/react';
 import {
     IconArrowsDownUp,
     IconBuildingSkyscraper,
@@ -20,8 +20,8 @@ import {
     IconPlus,
     IconRefresh,
     IconTrash,
-} from "@tabler/icons-react";
-import { useState, useEffect } from "react";
+} from '@tabler/icons-react';
+import { useState } from 'react';
 
 export default function Index(props) {
     const { data: fakultas, meta, links } = props.fakulties;
@@ -31,22 +31,21 @@ export default function Index(props) {
 
     // --- Hooks Filter (debounce 300ms)
     UseFilter({
-        route: route("admin.fakultas.index"),
+        route: route('admin.fakultas.index'),
         values: params,
-        only: ["fakultas"],
+        only: ['fakultas'],
     });
 
     // --- Sorting handler
     const onSortable = (field) => {
-        const direction =
-            params.field === field && params.direction === "asc" ? "desc" : "asc";
+        const direction = params.field === field && params.direction === 'asc' ? 'desc' : 'asc';
         const updated = { ...params, field, direction };
 
         setParams(updated);
 
         // langsung reload, skip debounce
-        router.get(route("admin.fakultas.index"), updated, {
-            only: ["fakultas"],
+        router.get(route('admin.fakultas.index'), updated, {
+            only: ['fakultas'],
             preserveScroll: true,
             preserveState: true,
             replace: true,
@@ -55,10 +54,10 @@ export default function Index(props) {
 
     // --- Reset filter
     const handleReset = () => {
-        const reset = { ...props.state, search: "", field: "", direction: "", load: 10 };
+        const reset = { ...props.state, search: '', field: '', direction: '', load: 10 };
         setParams(reset);
-        router.get(route("admin.fakultas.index"), reset, {
-            only: ["fakultas"],
+        router.get(route('admin.fakultas.index'), reset, {
+            only: ['fakultas'],
             preserveScroll: true,
             preserveState: true,
             replace: true,
@@ -71,18 +70,17 @@ export default function Index(props) {
         setParams((prev) => ({ ...prev, search: value }));
     };
 
-
     return (
         <>
-            <div className="flex flex-col w-full pb-32">
-                <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
+            <div className="flex w-full flex-col pb-32">
+                <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                     <HeaderTitle
                         title={props.page_settings.title}
                         subtitle={props.page_settings.subtitle}
                         icon={IconBuildingSkyscraper}
                     />
                     <Button asChild variant="orange" className="w-full lg:w-auto" size="xl">
-                        <Link href={route("admin.fakultas.create")}>
+                        <Link href={route('admin.fakultas.create')}>
                             <IconPlus className="size-4" />
                             Tambah
                         </Link>
@@ -90,12 +88,12 @@ export default function Index(props) {
                 </div>
 
                 <Card>
-                    <CardHeader className="p-0 mb-4">
-                        <div className="flex flex-col items-center w-full gap-4 px-6 py-4 lg:flex-row">
+                    <CardHeader className="mb-4 p-0">
+                        <div className="flex w-full flex-col items-center gap-4 px-6 py-4 lg:flex-row">
                             <Input
                                 className="w-full sm:w-1/3"
                                 placeholder="Cari berdasarkan fakultas..."
-                                value={params?.search || ""}
+                                value={params?.search || ''}
                                 onChange={handleSearch}
                             />
                             <Select
@@ -139,10 +137,10 @@ export default function Index(props) {
                                             #
                                             <Button
                                                 variant="ghost"
-                                                className="inline-flex group"
-                                                onClick={() => onSortable("id")}
+                                                className="group inline-flex"
+                                                onClick={() => onSortable('id')}
                                             >
-                                                <span className="flex-none ml-2 rounded text-muted-foreground">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -151,10 +149,10 @@ export default function Index(props) {
                                             Name
                                             <Button
                                                 variant="ghost"
-                                                className="inline-flex group"
-                                                onClick={() => onSortable("name")}
+                                                className="group inline-flex"
+                                                onClick={() => onSortable('name')}
                                             >
-                                                <span className="flex-none ml-2 rounded text-muted-foreground">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -163,10 +161,10 @@ export default function Index(props) {
                                             Code
                                             <Button
                                                 variant="ghost"
-                                                className="inline-flex group"
-                                                onClick={() => onSortable("code")}
+                                                className="group inline-flex"
+                                                onClick={() => onSortable('code')}
                                             >
-                                                <span className="flex-none ml-2 rounded text-muted-foreground">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -175,10 +173,10 @@ export default function Index(props) {
                                             Logo
                                             <Button
                                                 variant="ghost"
-                                                className="inline-flex group"
-                                                onClick={() => onSortable("logo")}
+                                                className="group inline-flex"
+                                                onClick={() => onSortable('logo')}
                                             >
-                                                <span className="flex-none ml-2 rounded text-muted-foreground">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -187,10 +185,10 @@ export default function Index(props) {
                                             Dibuat pada
                                             <Button
                                                 variant="ghost"
-                                                className="inline-flex group"
-                                                onClick={() => onSortable("created_at")}
+                                                className="group inline-flex"
+                                                onClick={() => onSortable('created_at')}
                                             >
-                                                <span className="flex-none ml-2 rounded text-muted-foreground">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -201,24 +199,20 @@ export default function Index(props) {
                                 <TableBody>
                                     {fakultas.map((faculty, index) => (
                                         <TableRow key={index}>
-                                            <TableCell>
-                                                {index + 1 + (meta.current_page - 1) * meta.per_page}
-                                            </TableCell>
+                                            <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
                                             <TableCell>{faculty.name}</TableCell>
                                             <TableCell>{faculty.code}</TableCell>
                                             <TableCell>
                                                 <Avatar>
                                                     <AvatarImage src={faculty.logo} />
-                                                    <AvatarFallback>
-                                                        {faculty.name.substring(0, 1)}
-                                                    </AvatarFallback>
+                                                    <AvatarFallback>{faculty.name.substring(0, 1)}</AvatarFallback>
                                                 </Avatar>
                                             </TableCell>
                                             <TableCell>{formatDateIndo(faculty.created_at)}</TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-x-1">
                                                     <Button variant="blue" size="sm" asChild>
-                                                        <Link href={route("admin.fakultas.edit", [faculty])}>
+                                                        <Link href={route('admin.fakultas.edit', [faculty])}>
                                                             <IconPencil className="size-4" />
                                                         </Link>
                                                     </Button>
@@ -228,7 +222,9 @@ export default function Index(props) {
                                                                 <IconTrash className="size-4" />
                                                             </Button>
                                                         }
-                                                        action={() =>deleteAction(route('admin.fakultas.destroy', [faculty])) }
+                                                        action={() =>
+                                                            deleteAction(route('admin.fakultas.destroy', [faculty]))
+                                                        }
                                                     />
                                                 </div>
                                             </TableCell>
@@ -239,13 +235,10 @@ export default function Index(props) {
                         )}
                     </CardContent>
 
-                    <CardFooter className="flex flex-col items-center justify-between w-full py-3 border-t gap-y-2 lg:flex-row">
+                    <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
                         <p className="text-sm text-muted-foreground">
-                            Menampilkan{" "}
-                            <span className="font-medium text-blue-600">
-                                {meta.from ?? 0}
-                            </span>{" "}
-                            dari {meta.total} fakultas
+                            Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
+                            {meta.total} fakultas
                         </p>
                         <div className="overflow-x-auto">
                             {meta.has_pages && <PaginationTable meta={meta} links={links} />}
@@ -257,6 +250,4 @@ export default function Index(props) {
     );
 }
 
-Index.layout = (page) => (
-    <AppLayout title={page.props.page_settings.title}>{page}</AppLayout>
-);
+Index.layout = (page) => <AppLayout title={page.props.page_settings.title}>{page}</AppLayout>;
