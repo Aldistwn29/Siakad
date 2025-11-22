@@ -18,7 +18,7 @@ class DepartementController extends Controller
     public function index()
     {
         $departements = Departemen::query()
-            ->select(['id', 'fakultas_id', 'name', 'code', 'slug', 'created_at'])
+            ->select(['departemens.id', 'departemens.fakultas_id', 'departemens.name', 'departemens.code', 'departemens.slug', 'departemens.created_at'])
             ->filter(request()->only(['search']))
             ->sorting(request()->only(['field', 'direction']))
             ->with('faculty')

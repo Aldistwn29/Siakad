@@ -6,30 +6,38 @@ import { Label } from '@/Components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import useFlashMessage from '@/lib/utils';
-import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconBuildingSkyscraper, IconCheck, IconRefresh } from '@tabler/icons-react';
+import { Link, useForm, usePage } from '@inertiajs/react';
+import { IconArrowLeft, IconBuildingSkyscraper, IconCheck, IconDoor, IconRefresh } from '@tabler/icons-react';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function Create(props) {
+    const flash = useFlashMessage();
+
     const { data, setData, post, processing, errors, reset } = useForm({
-        fakultas_id: null,
         name: '',
+        facultas_id: null,
+        departemen_id: null,
+        academic_year_id: props.academic_year.name,
         _method: props.page_settings.method,
     });
+
+    // menggunakan useEffect untuk menangani flash message
 
     // handle change
     const onhandleChange = (e) => setData(e.target.name, e.target.value);
     // handle submit
     const onhandleSubmit = (e) => {
-                e.preventDefault();
-                post(props.page_settings.action, {
-                    preserveScroll: true,
-                    preserveState: true,
-                    onSuccess: (success) => {
-                        const flash = useFlashMessage(success);
-                        if (flash) toast[flash.type](flash.message);
-                    },
-                });
-            };
+            e.preventDefault();
+            post(props.page_settings.action, {
+                preserveScroll:true,
+                preserveScroll: true,
+                onSuccess: (success) => {
+                    const flash = useFlashMessage(success);
+                    if(flash) toast[flash.type](flash.message);
+                },
+            });
+        };
 
     // handle reset
     const handleReset = () => reset();
@@ -40,10 +48,10 @@ export default function Create(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconBuildingSkyscraper}
+                    icon={IconDoor}
                 />
                 <Button asChild variant="orange" className="w-full lg:w-auto" size="xl">
-                    <Link href={route('admin.departemen.index')}>
+                    <Link href={route('admin.kelas.index')}>
                         <IconArrowLeft className="size-4" />
                         Kembali
                     </Link>
@@ -52,21 +60,22 @@ export default function Create(props) {
             <Card>
                 <CardContent className="px-6">
                     <form onSubmit={onhandleSubmit}>
-                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+                        <div className="grid grid-cols-1 gap-4 lg:p-3 lg:grid-cols-4">
+                            {/* Fakultas */}
                             <div className="col-span-full">
-                                <Label htmlFor="fakultas_id">Fakultas</Label>
+                                <Label htmlFor="facultas_id">Fakultas</Label>
                                 <Select
-                                    defaultValue={String(data.fakultas_id)}
-                                    onValueChange={(value) => setData('fakultas_id', value)}
+                                    defaultValue={String(data.facultas_id)}
+                                    onValueChange={(value) => setData('facultas_id', value)}
                                 >
                                     <SelectTrigger>
                                         <SelectValue>
-                                            {props.faculties.find((faculty) => faculty.value == data.fakultas_id)
+                                            {props.fakultas.find((faculty) => faculty.value == data.facultas_id)
                                                 ?.label ?? 'Pilih fakultas'}
                                         </SelectValue>
 
                                         <SelectContent>
-                                            {props.faculties.map((faculty, index) => (
+                                            {props.fakultas.map((faculty, index) => (
                                                 <SelectItem key={index} value={faculty.value}>
                                                     {faculty.label}
                                                 </SelectItem>
@@ -74,7 +83,43 @@ export default function Create(props) {
                                         </SelectContent>
                                     </SelectTrigger>
                                 </Select>
-                                {errors.fakultas_id && <Input message={errors.fakultas_id} />}
+                                {errors.facultas_id && <Input message={errors.facultas_id} />}
+                            </div>
+                            {/* Program Studi */}
+                            <div className="col-span-full">
+                                <Label htmlFor="departemen_id">Program Studi</Label>
+                                <Select
+                                    defaultValue={String(data.departemen_id)}
+                                    onValueChange={(value) => setData('departemen_id', value)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue>
+                                            {props.departemens.find((departemen) => departemen.value == data.departemen_id)
+                                                ?.label ?? 'Pilih fakultas'}
+                                        </SelectValue>
+
+                                        <SelectContent>
+                                            {props.departemens.map((departemen, index) => (
+                                                <SelectItem key={index} value={departemen.value}>
+                                                    {departemen.label}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </SelectTrigger>
+                                </Select>
+                                {errors.departemen_id && <Input message={errors.departemen_id} />}
+                            </div>
+                            {/* Tahun Ajaran */}
+                            <div className="col-span-full">
+                                <Label htmlFor="academic_year_id">Tahun Ajaran</Label>
+                                <Input
+                                    id="academic_year_id"
+                                    name="academic_year_id"
+                                    value={data.academic_year_id}
+                                    onChange={onhandleChange}
+                                    disabled
+                                />
+                                {errors.academic_year_id && <Input message={errors.academic_year_id} />}
                             </div>
                             <div className="col-span-full">
                                 <Label htmlFor="name">Nama</Label>

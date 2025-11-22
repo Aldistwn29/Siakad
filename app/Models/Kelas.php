@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Kelas extends Model
 {
+    use Sluggable;
     protected $fillable = [
         'name',
         'slug',
@@ -14,9 +17,18 @@ class Kelas extends Model
         'acdemic_year_id'
     ];
 
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ],
+        ];
+    }
+
     public function faculty()
     {
-        return $this->belongsTo(Fakultas::class);
+        return $this->belongsTo(Fakultas::class, 'facultas_id');
     }
 
     public function departemen()
@@ -26,7 +38,7 @@ class Kelas extends Model
 
     public function acdemicYear()
     {
-        return $this->belongsTo(AcademicYear::class);
+        return $this->belongsTo(AcademicYear::class, 'acdemic_year_id');
     }
 
     public function students()
@@ -49,5 +61,20 @@ class Kelas extends Model
             'id',
             'id'
         );
+    }
+
+    // function filter
+    public function scopeFilter(Builder $query, array $filters)
+    {
+        $query->when($filters['search'] ?? null, function($query, $search){
+            $query->where('name', 'REGEXP', $search);
+        });
+    }
+    // function search
+    public function scopeSorting(Builder $query, array $sorts)
+    {
+        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function($query) use($sorts){
+            $query->orderBy($sorts['field'], $sorts['direction']);
+        });
     }
 }

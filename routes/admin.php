@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AcademicYearController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\FakultasController;
+use App\Http\Controllers\Admin\KelasController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
@@ -37,5 +38,15 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('academic_year/edit/{academic_year:slug}', 'edit')->name('admin.academic_year.edit');
         Route::put('academic_year/edit/{academic_year:slug}', 'update')->name('admin.academic_year.update');
         Route::delete('academic_year/delete/{academic_year:slug}', 'destroy')->name('admin.academic_year.destroy');
+    });
+
+    // route kelas
+    Route::controller(KelasController::class)->group(function(){
+        Route::get('kelas', 'index')->name('admin.kelas.index');
+        Route::get('kelas/create', 'create')->name('admin.kelas.create');
+        Route::post('kelas/create', 'store')->name('admin.kelas.store');
+        Route::get('kelas/edit/{kelas:slug}', 'edit')->name('admin.kelas.edit');
+        Route::put('kelas/edit/{kelas:slug}', 'update')->name('admin.kelas.update');
+        Route::delete('kelas/delete/{kelas:slug}', 'destroy')->name('admin.kelas.destroy');
     });
 });

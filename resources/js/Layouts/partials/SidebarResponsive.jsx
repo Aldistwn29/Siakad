@@ -51,8 +51,8 @@ export default function SidebarResponsive({ auth, url }) {
         return false;
     };
     return (
-        <div className="mt-4 flex flex-1 flex-col">
-            <ul className="flex flex-1 flex-col" role="list">
+        <div className="flex flex-col flex-1 mt-4">
+            <ul className="flex flex-col flex-1" role="list">
                 {/* Menu items */}
                 {/* Role:Admin */}
                 {hasRole('Admin') && (
@@ -84,10 +84,10 @@ export default function SidebarResponsive({ auth, url }) {
                             icon={IconCalendar}
                         />
                         <NavLink
-                            url="#"
+                            url={route('admin.kelas.index')}
                             active={url.startsWith('/admin/classrooms')}
                             title="Kelas"
-                            icon={IconChalkboard}
+                            icon={IconDoor}
                         />
                         <NavLink url="#" active={url.startsWith('/admin/roles')} title="Peran" icon={IconCircleKey} />
 
