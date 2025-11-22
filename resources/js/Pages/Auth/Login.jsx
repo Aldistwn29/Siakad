@@ -36,8 +36,8 @@ export default function Login({ status, canResetPassword }) {
                                     <AlertDescription>{status}</AlertDescription>
                                 </Alert>
                             )}
-                            <h1 className="text-3xl font-bold text-foreground">Login</h1>
-                            <p className="text-balance text-muted-foreground">
+                            <h1 className="text-foreground text-3xl font-bold">Login</h1>
+                            <p className="text-muted-foreground text-balance">
                                 Selamat Datang di website SIAKAD, Silahkan Login terlebih dahulu
                             </p>
                             {/* Form */}
@@ -105,7 +105,7 @@ export default function Login({ status, canResetPassword }) {
             {/* end side left */}
 
             {/* Side Right */}
-            <div className="hidden bg-muted lg:block">
+            <div className="bg-muted hidden lg:block">
                 <img
                     src="/build/images/bg-login.webp"
                     className="h-full max-h-screen w-full object-cover"

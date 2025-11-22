@@ -10,12 +10,7 @@ import {
 } from '@/Components/ui/alert-dialog';
 import { AlertDialogTitle } from '@radix-ui/react-alert-dialog';
 
-export default function AlertAction({
-    trigger,
-    action,
-    title = 'Apakah yakin ingin menghapusnya?',
-    description = '',
-}) {
+export default function AlertAction({ trigger, action, title = 'Apakah yakin ingin menghapusnya?', description = '' }) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>

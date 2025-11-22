@@ -11,7 +11,7 @@ export default function ShowFilter({ params = {}, className = '' }) {
     if (!hasFilter) return null;
 
     return (
-        <div className={cn('flex w-full flex-wrap items-center gap-2 bg-secondary p-3', className)}>
+        <div className={cn('bg-secondary flex w-full flex-wrap items-center gap-2 p-3', className)}>
             <div className="flex items-center gap-1 text-sm">
                 <IconFilter className="size-4" />
                 <span>Filter:</span>

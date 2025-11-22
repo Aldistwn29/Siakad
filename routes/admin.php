@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\FakultasController;
 use App\Http\Controllers\Admin\KelasController;
+use App\Http\Controllers\Admin\RoleController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
@@ -48,5 +49,15 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('kelas/edit/{kelas:slug}', 'edit')->name('admin.kelas.edit');
         Route::put('kelas/edit/{kelas:slug}', 'update')->name('admin.kelas.update');
         Route::delete('kelas/delete/{kelas:slug}', 'destroy')->name('admin.kelas.destroy');
+    });
+
+    // Route Role
+    Route::controller(RoleController::class)->group(function(){
+        Route::get('roles', 'index')->name('admin.roles.index');
+        Route::get('roles/create', 'create')->name('admin.roles.create');
+        Route::post('roles/create', 'store')->name('admin.roles.store');
+        Route::get('roles/edit/{role}', 'edit')->name('admin.roles.edit');
+        Route::put('roles/edit/{role}', 'update')->name('admin.roles.update');
+        Route::delete('roles/delete/{role}', 'destroy')->name('admin.roles.destroy');
     });
 });

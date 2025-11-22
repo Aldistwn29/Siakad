@@ -6,9 +6,8 @@ import { Label } from '@/Components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import useFlashMessage from '@/lib/utils';
-import { Link, useForm, usePage } from '@inertiajs/react';
-import { IconArrowLeft, IconBuildingSkyscraper, IconCheck, IconDoor, IconRefresh } from '@tabler/icons-react';
-import { useEffect } from 'react';
+import { Link, useForm } from '@inertiajs/react';
+import { IconArrowLeft, IconCheck, IconDoor, IconRefresh } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
 export default function Create(props) {
@@ -28,23 +27,23 @@ export default function Create(props) {
     const onhandleChange = (e) => setData(e.target.name, e.target.value);
     // handle submit
     const onhandleSubmit = (e) => {
-            e.preventDefault();
-            post(props.page_settings.action, {
-                preserveScroll:true,
-                preserveScroll: true,
-                onSuccess: (success) => {
-                    const flash = useFlashMessage(success);
-                    if(flash) toast[flash.type](flash.message);
-                },
-            });
-        };
+        e.preventDefault();
+        post(props.page_settings.action, {
+            preserveScroll: true,
+            preserveScroll: true,
+            onSuccess: (success) => {
+                const flash = useFlashMessage(success);
+                if (flash) toast[flash.type](flash.message);
+            },
+        });
+    };
 
     // handle reset
     const handleReset = () => reset();
 
     return (
-        <div className="flex flex-col w-full pb-32">
-            <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
+        <div className="flex w-full flex-col pb-32">
+            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
@@ -60,7 +59,7 @@ export default function Create(props) {
             <Card>
                 <CardContent className="px-6">
                     <form onSubmit={onhandleSubmit}>
-                        <div className="grid grid-cols-1 gap-4 lg:p-3 lg:grid-cols-4">
+                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:p-3">
                             {/* Fakultas */}
                             <div className="col-span-full">
                                 <Label htmlFor="facultas_id">Fakultas</Label>
@@ -94,8 +93,9 @@ export default function Create(props) {
                                 >
                                     <SelectTrigger>
                                         <SelectValue>
-                                            {props.departemens.find((departemen) => departemen.value == data.departemen_id)
-                                                ?.label ?? 'Pilih fakultas'}
+                                            {props.departemens.find(
+                                                (departemen) => departemen.value == data.departemen_id,
+                                            )?.label ?? 'Pilih fakultas'}
                                         </SelectValue>
 
                                         <SelectContent>
@@ -134,7 +134,7 @@ export default function Create(props) {
                                 {errors.name && <Input message={errors.name} />}
                             </div>
                         </div>
-                        <div className="flex flex-col gap-2 mt-8 lg:flex-row lg:justify-end">
+                        <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
                             <Button variant="red" size="xl" type="submit" onClick={handleReset}>
                                 <IconRefresh className="size-4" />
                                 Reset

@@ -14,7 +14,7 @@ export default function HeaderStudentLayout({ url, auth }) {
         <>
             <Disclosure
                 as="nav"
-                className="border-b border-blue-300 border-opacity-25 bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 py-4 lg:border-none"
+                className="border-opacity-25 border-b border-blue-300 bg-gradient-to-r from-blue-600 via-blue-600 to-blue-700 py-4 lg:border-none"
             >
                 {({ open }) => (
                     <>
@@ -148,7 +148,7 @@ export default function HeaderStudentLayout({ url, auth }) {
 
                         {/* Mobile Menu */}
                         <DisclosurePanel className="lg:hidden">
-                            <div className="space-y-1 px-2 pb-3 pt-2">
+                            <div className="space-y-1 px-2 pt-2 pb-3">
                                 <DisclosureButton
                                     as="a"
                                     href="#"

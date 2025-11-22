@@ -4,7 +4,6 @@ import {
     IconBook2,
     IconBuildingSkyscraper,
     IconCalendar,
-    IconChalkboard,
     IconCircleKey,
     IconDoor,
     IconDroplet,
@@ -51,8 +50,8 @@ export default function SidebarResponsive({ auth, url }) {
         return false;
     };
     return (
-        <div className="flex flex-col flex-1 mt-4">
-            <ul className="flex flex-col flex-1" role="list">
+        <div className="mt-4 flex flex-1 flex-col">
+            <ul className="flex flex-1 flex-col" role="list">
                 {/* Menu items */}
                 {/* Role:Admin */}
                 {hasRole('Admin') && (
@@ -89,15 +88,15 @@ export default function SidebarResponsive({ auth, url }) {
                             title="Kelas"
                             icon={IconDoor}
                         />
-                        <NavLink url="#" active={url.startsWith('/admin/roles')} title="Peran" icon={IconCircleKey} />
+                        <NavLink
+                            url={route('admin.roles.index')}
+                            active={url.startsWith('/admin/roles')}
+                            title="Peran"
+                            icon={IconCircleKey}
+                        />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Pengguna</div>
-                        <NavLink
-                            url="#"
-                            active={url.startsWith('/admin/students')}
-                            title="Mahasiswa"
-                            icon={IconUsers}
-                        />
+                        <NavLink active={url.startsWith('/admin/students')} title="Mahasiswa" icon={IconUsers} />
                         <NavLink
                             url="#"
                             active={url.startsWith('/admin/teachers')}
