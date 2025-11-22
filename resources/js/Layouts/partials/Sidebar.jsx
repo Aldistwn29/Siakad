@@ -78,10 +78,10 @@ export default function Sidebar({ auth, url }) {
                                 icon={IconCalendar}
                             />
                             <NavLink
-                                url="#"
+                                url={route('admin.kelas.index')}
                                 active={url.startsWith('/admin/classrooms')}
                                 title="Kelas"
-                                icon={IconChalkboard}
+                                icon={IconDoor}
                             />
                             <NavLink
                                 url="#"
