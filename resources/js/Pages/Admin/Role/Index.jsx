@@ -3,7 +3,6 @@ import EmptyState from '@/Components/EmptyState';
 import HeaderTitle from '@/Components/HeaderTitle';
 import PaginationTable from '@/Components/PaginationTable';
 import ShowFilter from '@/Components/ShowFilter';
-import { Avatar, AvatarFallback, AvatarImage } from '@/Components/ui/avatar';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -13,27 +12,20 @@ import UseFilter from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
-import {
-    IconArrowsDownUp,
-    IconBuildingSkyscraper,
-    IconPencil,
-    IconPlus,
-    IconRefresh,
-    IconTrash,
-} from '@tabler/icons-react';
+import { IconArrowsDownUp, IconCircleKey, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: fakultas, meta, links } = props.fakulties;
+    const { data: roles, meta, links } = props.roles;
 
     const [params, setParams] = useState({ ...props.state });
     const [instantReload, setInstantReload] = useState(false);
 
     // --- Hooks Filter (debounce 300ms)
     UseFilter({
-        route: route('admin.fakultas.index'),
+        route: route('admin.roles.index'),
         values: params,
-        only: ['fakultas'],
+        only: ['role'],
     });
 
     // --- Sorting handler
@@ -44,8 +36,8 @@ export default function Index(props) {
         setParams(updated);
 
         // langsung reload, skip debounce
-        router.get(route('admin.fakultas.index'), updated, {
-            only: ['fakultas'],
+        router.get(route('admin.roles.index'), updated, {
+            only: ['roles'],
             preserveScroll: true,
             preserveState: true,
             replace: true,
@@ -56,8 +48,8 @@ export default function Index(props) {
     const handleReset = () => {
         const reset = { ...props.state, search: '', field: '', direction: '', load: 10 };
         setParams(reset);
-        router.get(route('admin.fakultas.index'), reset, {
-            only: ['fakultas'],
+        router.get(route('admin.roles.index'), reset, {
+            only: ['roles'],
             preserveScroll: true,
             preserveState: true,
             replace: true,
@@ -77,10 +69,10 @@ export default function Index(props) {
                     <HeaderTitle
                         title={props.page_settings.title}
                         subtitle={props.page_settings.subtitle}
-                        icon={IconBuildingSkyscraper}
+                        icon={IconCircleKey}
                     />
                     <Button asChild variant="orange" className="w-full lg:w-auto" size="xl">
-                        <Link href={route('admin.fakultas.create')}>
+                        <Link href={route('admin.roles.create')}>
                             <IconPlus className="size-4" />
                             Tambah
                         </Link>
@@ -92,7 +84,7 @@ export default function Index(props) {
                         <div className="flex w-full flex-col items-center gap-4 px-6 py-4 lg:flex-row">
                             <Input
                                 className="w-full sm:w-1/3"
-                                placeholder="Cari berdasarkan fakultas..."
+                                placeholder="Cari berdasarkan peran..."
                                 value={params?.search || ''}
                                 onChange={handleSearch}
                             />
@@ -123,11 +115,11 @@ export default function Index(props) {
                     </CardHeader>
 
                     <CardContent className="pb-0 [&-td]:px-6 [&-td]:whitespace-nowrap [&-th]:px-6">
-                        {fakultas.length === 0 ? (
+                        {roles.length === 0 ? (
                             <EmptyState
-                                title="Data kosong"
-                                subtitle="Silahkan untuk menambahkan data baru"
-                                icon={IconBuildingSkyscraper}
+                                title="Peran koson"
+                                subtitle="Silahkan untuk menambahkan data peran baru"
+                                icon={IconCircleKey}
                             />
                         ) : (
                             <Table className="w-full">
@@ -158,23 +150,11 @@ export default function Index(props) {
                                             </Button>
                                         </TableHead>
                                         <TableHead>
-                                            Code
+                                            Name Guard
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('code')}
-                                            >
-                                                <span className="text-muted-foreground ml-2 flex-none rounded">
-                                                    <IconArrowsDownUp className="size-4" />
-                                                </span>
-                                            </Button>
-                                        </TableHead>
-                                        <TableHead>
-                                            Logo
-                                            <Button
-                                                variant="ghost"
-                                                className="group inline-flex"
-                                                onClick={() => onSortable('logo')}
+                                                onClick={() => onSortable('guard_name')}
                                             >
                                                 <span className="text-muted-foreground ml-2 flex-none rounded">
                                                     <IconArrowsDownUp className="size-4" />
@@ -197,22 +177,16 @@ export default function Index(props) {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {fakultas.map((faculty, index) => (
+                                    {roles.map((role, index) => (
                                         <TableRow key={index}>
                                             <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                            <TableCell>{faculty.name}</TableCell>
-                                            <TableCell>{faculty.code}</TableCell>
-                                            <TableCell>
-                                                <Avatar>
-                                                    <AvatarImage src={faculty.logo} />
-                                                    <AvatarFallback>{faculty.name.substring(0, 1)}</AvatarFallback>
-                                                </Avatar>
-                                            </TableCell>
-                                            <TableCell>{formatDateIndo(faculty.created_at)}</TableCell>
+                                            <TableCell>{role.name}</TableCell>
+                                            <TableCell>{role.guard_name}</TableCell>
+                                            <TableCell>{formatDateIndo(role.created_at)}</TableCell>
                                             <TableCell>
                                                 <div className="flex items-center gap-x-1">
                                                     <Button variant="blue" size="sm" asChild>
-                                                        <Link href={route('admin.fakultas.edit', [faculty])}>
+                                                        <Link href={route('admin.roles.edit', [role])}>
                                                             <IconPencil className="size-4" />
                                                         </Link>
                                                     </Button>
@@ -223,7 +197,7 @@ export default function Index(props) {
                                                             </Button>
                                                         }
                                                         action={() =>
-                                                            deleteAction(route('admin.fakultas.destroy', [faculty]))
+                                                            deleteAction(route('admin.roles.destroy', [role]))
                                                         }
                                                     />
                                                 </div>
@@ -238,7 +212,7 @@ export default function Index(props) {
                     <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
                         <p className="text-muted-foreground text-sm">
                             Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
-                            {meta.total} fakultas
+                            {meta.total} Peran
                         </p>
                         <div className="overflow-x-auto">
                             {meta.has_pages && <PaginationTable meta={meta} links={links} />}
@@ -250,4 +224,4 @@ export default function Index(props) {
     );
 }
 
-Index.layout = (page) => <AppLayout title={page.props.page_settings.title}>{page}</AppLayout>;
+Index.layout = (page) => <AppLayout title={page.props.page_settings.title} children={page} />;

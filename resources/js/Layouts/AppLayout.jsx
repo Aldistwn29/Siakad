@@ -64,7 +64,7 @@ export default function AppLayout({ title, children }) {
                         >
                             <Dialog.Panel className="relative flex w-72 flex-col overflow-hidden rounded-r-2xl bg-gradient-to-b from-blue-500 via-blue-600 to-blue-700 shadow-xl">
                                 {/* Tombol Close */}
-                                <div className="absolute right-4 top-4">
+                                <div className="absolute top-4 right-4">
                                     <button
                                         onClick={() => setSidebarOpen(false)}
                                         className="rounded-full p-2 transition hover:bg-white/10"
@@ -91,7 +91,7 @@ export default function AppLayout({ title, children }) {
 
             {/* ===== Desktop Sidebar ===== */}
             <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-                <div className="flex h-full flex-col justify-between overflow-y-auto rounded-r-2xl border-r bg-gradient-to-b from-blue-500 via-blue-600 to-blue-700 px-6 py-8 text-white shadow-lg transition-all duration-300 scrollbar-hide hover:overflow-y-auto">
+                <div className="scrollbar-hide flex h-full flex-col justify-between overflow-y-auto rounded-r-2xl border-r bg-gradient-to-b from-blue-500 via-blue-600 to-blue-700 px-6 py-8 text-white shadow-lg transition-all duration-300 hover:overflow-y-auto">
                     <Sidebar auth={auth} url={url} />
                 </div>
             </div>
@@ -106,7 +106,7 @@ export default function AppLayout({ title, children }) {
                     >
                         <IconLayoutSidebar className="size-6" />
                     </button>
-                    <h1 className="text-base font-semibold leading-6 text-gray-900">{title}</h1>
+                    <h1 className="text-base leading-6 font-semibold text-gray-900">{title}</h1>
                 </div>
                 <Link href="#">
                     <Avatar>

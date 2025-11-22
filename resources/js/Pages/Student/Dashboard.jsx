@@ -9,15 +9,15 @@ export default function Dashbord(props) {
     return (
         <div className="flex flex-col gap-5 p-6">
             <div>
-                <h3 className="text-xl font-semibold leading-relaxed tracking-tight text-foreground">
+                <h3 className="text-foreground text-xl leading-relaxed font-semibold tracking-tight">
                     {props.page_settings.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">{props.page_settings.subtitle}</p>
+                <p className="text-muted-foreground text-sm">{props.page_settings.subtitle}</p>
             </div>
 
             <div className="mb-8 flex flex-col">
-                <h2 className="text-xl font-medium leading-relaxed text-foreground">Hai, {auth.name}</h2>
-                <p className="text-sm text-muted-foreground">Selamat datang di Sistem Informasi Akademik Universitas</p>
+                <h2 className="text-foreground text-xl leading-relaxed font-medium">Hai, {auth.name}</h2>
+                <p className="text-muted-foreground text-sm">Selamat datang di Sistem Informasi Akademik Universitas</p>
             </div>
             <div className="mb-8 grid gap-4 lg:grid-cols-3">
                 {/* kartu Rencana Studi diterima */}

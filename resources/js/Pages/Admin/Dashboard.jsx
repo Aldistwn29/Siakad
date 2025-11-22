@@ -17,8 +17,8 @@ export default function Dahsboard(props) {
                 />
             </div>
             <div className="mb-8 flex flex-col">
-                <h2 className="text-xl font-medium leading-relaxed text-foreground">Hai, {auth.name}</h2>
-                <p className="text-sm text-muted-foreground">Selamat datang di Sistem Informasi Akademik Universitas</p>
+                <h2 className="text-foreground text-xl leading-relaxed font-medium">Hai, {auth.name}</h2>
+                <p className="text-muted-foreground text-sm">Selamat datang di Sistem Informasi Akademik Universitas</p>
             </div>
             <div className="mb-8 grid gap-4 lg:grid-cols-4">
                 {/* Total Fakultas */}

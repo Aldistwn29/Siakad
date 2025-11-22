@@ -12,21 +12,11 @@ import UseFilter from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
-import {
-    IconArrowsDownUp,
-    IconBuildingSkyscraper,
-    IconCalendar,
-    IconDoor,
-    IconPencil,
-    IconPlus,
-    IconRefresh,
-    IconTrash,
-} from '@tabler/icons-react';
+import { IconArrowsDownUp, IconDoor, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
     const { data: classroms, meta, links } = props.classroms;
-    console.log(props.classroms);
     const [params, setParams] = useState(props.state);
     // --- Hooks Filter (debounce 300ms)
     UseFilter({
@@ -64,8 +54,8 @@ export default function Index(props) {
     };
 
     return (
-        <div className="flex flex-col w-full pb-32">
-            <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
+        <div className="flex w-full flex-col pb-32">
+            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
@@ -80,8 +70,8 @@ export default function Index(props) {
             </div>
             {/* Card */}
             <Card>
-                <CardHeader className="p-0 mb-4">
-                    <div className="flex flex-col items-center w-full gap-4 px-6 py-4 lg:flex-row">
+                <CardHeader className="mb-4 p-0">
+                    <div className="flex w-full flex-col items-center gap-4 px-6 py-4 lg:flex-row">
                         <Input
                             className="w-full sm:w-1/3"
                             placeholder="Cari berdasarkan program studi..."
@@ -114,7 +104,7 @@ export default function Index(props) {
                     <ShowFilter params={params} />
                 </CardHeader>
 
-                <CardContent className="pb-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
+                <CardContent className="pb-0 [&-td]:px-6 [&-td]:whitespace-nowrap [&-th]:px-6">
                     {classroms.length === 0 ? (
                         <EmptyState
                             title="Tidak ada data kelas"
@@ -130,11 +120,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('facultas_id')}
                                         >
                                             Fakultas
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="text-muted-foreground ml-2 flex-none rounded">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -143,11 +133,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('departemen_id')}
                                         >
                                             Program Studi
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="text-muted-foreground ml-2 flex-none rounded">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -156,24 +146,24 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('academic_year_id')}
                                         >
                                             Tahun Ajaran
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="text-muted-foreground ml-2 flex-none rounded">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
                                     {/* Nama */}
-                                     <TableHead>
+                                    <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('name')}
                                         >
                                             Nama
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="text-muted-foreground ml-2 flex-none rounded">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -183,10 +173,10 @@ export default function Index(props) {
                                         Dibuat pada
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('created_at')}
                                         >
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="text-muted-foreground ml-2 flex-none rounded">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -229,8 +219,8 @@ export default function Index(props) {
                     )}
                 </CardContent>
 
-                <CardFooter className="flex flex-col items-center justify-between w-full py-3 border-t gap-y-2 lg:flex-row">
-                    <p className="text-sm text-muted-foreground">
+                <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
+                    <p className="text-muted-foreground text-sm">
                         Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
                         {meta.total} Kelas
                     </p>
@@ -243,4 +233,4 @@ export default function Index(props) {
     );
 }
 
-Index.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />
+Index.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
