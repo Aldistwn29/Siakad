@@ -20,7 +20,7 @@ AvatarImage.displayName = AvatarPrimitive.Image.displayName;
 const AvatarFallback = React.forwardRef(({ className, ...props }, ref) => (
     <AvatarPrimitive.Fallback
         ref={ref}
-        className={cn('bg-muted flex h-full w-full items-center justify-center rounded-full text-blue-600', className)}
+        className={cn('flex h-full w-full items-center justify-center rounded-full bg-muted text-blue-600', className)}
         {...props}
     />
 ));

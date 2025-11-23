@@ -34,7 +34,7 @@ export default function Sidebar({ auth, url }) {
                 <li className="-mx-6">
                     <Link
                         href="#"
-                        className="flex items-center gap-x-4 px-6 py-3 text-sm leading-6 font-semibold text-white hover:bg-blue-800"
+                        className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-blue-800"
                     >
                         <Avatar>
                             <AvatarImage src={auth.avatar} />
@@ -131,7 +131,7 @@ export default function Sidebar({ auth, url }) {
                                 icon={IconMoneybag}
                             />
                             <NavLink
-                                url="#"
+                                url={route('admin.fee-groups.index')}
                                 active={url.startsWith('/admin/fee-groups')}
                                 title="Golongan Uang Kuliah"
                                 icon={IconDroplet}

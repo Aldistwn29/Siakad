@@ -122,7 +122,7 @@ export default function Index(props) {
                         <ShowFilter params={params} />
                     </CardHeader>
 
-                    <CardContent className="pb-0 [&-td]:px-6 [&-td]:whitespace-nowrap [&-th]:px-6">
+                    <CardContent className="pb-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
                         {fakultas.length === 0 ? (
                             <EmptyState
                                 title="Data kosong"
@@ -140,7 +140,7 @@ export default function Index(props) {
                                                 className="group inline-flex"
                                                 onClick={() => onSortable('id')}
                                             >
-                                                <span className="text-muted-foreground ml-2 flex-none rounded">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -152,7 +152,7 @@ export default function Index(props) {
                                                 className="group inline-flex"
                                                 onClick={() => onSortable('name')}
                                             >
-                                                <span className="text-muted-foreground ml-2 flex-none rounded">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -164,7 +164,7 @@ export default function Index(props) {
                                                 className="group inline-flex"
                                                 onClick={() => onSortable('code')}
                                             >
-                                                <span className="text-muted-foreground ml-2 flex-none rounded">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -176,7 +176,7 @@ export default function Index(props) {
                                                 className="group inline-flex"
                                                 onClick={() => onSortable('logo')}
                                             >
-                                                <span className="text-muted-foreground ml-2 flex-none rounded">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -188,7 +188,7 @@ export default function Index(props) {
                                                 className="group inline-flex"
                                                 onClick={() => onSortable('created_at')}
                                             >
-                                                <span className="text-muted-foreground ml-2 flex-none rounded">
+                                                <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
                                                 </span>
                                             </Button>
@@ -236,7 +236,7 @@ export default function Index(props) {
                     </CardContent>
 
                     <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
-                        <p className="text-muted-foreground text-sm">
+                        <p className="text-sm text-muted-foreground">
                             Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
                             {meta.total} fakultas
                         </p>

@@ -1,4 +1,5 @@
 import HeaderTitle from '@/Components/HeaderTitle';
+import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -75,7 +76,7 @@ export default function Edit(props) {
                                         </SelectContent>
                                     </SelectTrigger>
                                 </Select>
-                                {errors.facultas_id && <Input message={errors.facultas_id} />}
+                                {errors.facultas_id && <InputError message={errors.facultas_id} />}
                             </div>
                             {/* Program Studi */}
                             <div className="col-span-full">
@@ -100,7 +101,7 @@ export default function Edit(props) {
                                         </SelectContent>
                                     </SelectTrigger>
                                 </Select>
-                                {errors.departemen_id && <Input message={errors.departemen_id} />}
+                                {errors.departemen_id && <InputError message={errors.departemen_id} />}
                             </div>
                             {/* Tahun Ajaran */}
                             <div className="col-span-full">
@@ -112,7 +113,7 @@ export default function Edit(props) {
                                     onChange={onhandleChange}
                                     disabled
                                 />
-                                {errors.academic_year_id && <Input message={errors.academic_year_id} />}
+                                {errors.academic_year_id && <InputError message={errors.academic_year_id} />}
                             </div>
                             <div className="col-span-full">
                                 <Label htmlFor="name">Nama</Label>
@@ -124,7 +125,7 @@ export default function Edit(props) {
                                     onChange={onhandleChange}
                                     palceholder="Masukkan nama progrm studi"
                                 />
-                                {errors.name && <Input message={errors.name} />}
+                                {errors.name && <InputError message={errors.name} />}
                             </div>
                         </div>
                         <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">

@@ -8,14 +8,19 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import AppLayout from '@/Layouts/AppLayout';
 import useFlashMessage from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconBuildingSkyscraper, IconCheck, IconRefresh } from '@tabler/icons-react';
+import { IconArrowLeft, IconCheck, IconDoor, IconDroplet, IconRefresh } from '@tabler/icons-react';
+import { toast } from 'sonner';
 
-export default function Create(props) {
+export default function Edit(props) {
+    const flash = useFlashMessage();
+
     const { data, setData, post, processing, errors, reset } = useForm({
-        fakultas_id: null,
-        name: '',
+        group: props.feeGroup.group ?? 1,
+        amount: props.feeGroup.amount ?? 0,
         _method: props.page_settings.method,
     });
+
+    // menggunakan useEffect untuk menangani flash message
 
     // handle change
     const onhandleChange = (e) => setData(e.target.name, e.target.value);
@@ -24,7 +29,7 @@ export default function Create(props) {
         e.preventDefault();
         post(props.page_settings.action, {
             preserveScroll: true,
-            preserveState: true,
+            preserveScroll: true,
             onSuccess: (success) => {
                 const flash = useFlashMessage(success);
                 if (flash) toast[flash.type](flash.message);
@@ -41,10 +46,10 @@ export default function Create(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconBuildingSkyscraper}
+                    icon={IconDroplet}
                 />
                 <Button asChild variant="orange" className="w-full lg:w-auto" size="xl">
-                    <Link href={route('admin.departemen.index')}>
+                    <Link href={route('admin.fee-groups.index')}>
                         <IconArrowLeft className="size-4" />
                         Kembali
                     </Link>
@@ -53,41 +58,32 @@ export default function Create(props) {
             <Card>
                 <CardContent className="px-6">
                     <form onSubmit={onhandleSubmit}>
-                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
+                        <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:p-3">
+                            {/* Golongan */}
                             <div className="col-span-full">
-                                <Label htmlFor="fakultas_id">Fakultas</Label>
-                                <Select
-                                    defaultValue={String(data.fakultas_id)}
-                                    onValueChange={(value) => setData('fakultas_id', value)}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue>
-                                            {props.faculties.find((faculty) => faculty.value == data.fakultas_id)
-                                                ?.label ?? 'Pilih fakultas'}
-                                        </SelectValue>
-
-                                        <SelectContent>
-                                            {props.faculties.map((faculty, index) => (
-                                                <SelectItem key={index} value={faculty.value}>
-                                                    {faculty.label}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </SelectTrigger>
-                                </Select>
-                                {errors.fakultas_id && <InputError message={errors.fakultas_id} />}
+                                <Label htmlFor="group">Golongan</Label>
+                               <Input
+                                    type="number"
+                                    name="group"
+                                    id="group"
+                                    value={data.group}
+                                    placeholder="Masukkan golongan ukt baru"
+                                    onChange={(e) => setData(e.target.name, e.target.value)}
+                                    />
+                                {errors.group && <InputError message={errors.group} />}
                             </div>
+                            {/* Jumlah */}
                             <div className="col-span-full">
-                                <Label htmlFor="name">Nama</Label>
-                                <Input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    value={data.name}
-                                    onChange={onhandleChange}
-                                    palceholder="Masukkan nama progrm studi"
-                                />
-                                {errors.name && <InputError message={errors.name} />}
+                                <Label htmlFor="amount">Jumlah</Label>
+                                <Input 
+                                    type="number"
+                                    name="amount"
+                                    id="amount"
+                                    value={data.amount}
+                                    placeholder="Masukkan jumlah nominal ukt baru"
+                                    onChange={(e) => setData(e.target.name, e.target.value)}
+                                    />
+                                {errors.amount && <InputError message={errors.amount} />}
                             </div>
                         </div>
                         <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
@@ -107,4 +103,4 @@ export default function Create(props) {
     );
 }
 
-Create.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
+Edit.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
