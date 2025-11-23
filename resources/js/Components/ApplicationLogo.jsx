@@ -6,7 +6,7 @@ export default function AplicationLogo({ bgLogo, colorLogo, colorText }) {
         <Link href="#" className={cn('flex flex-row items-center gap-2')}>
             <div
                 className={cn(
-                    'text-foreground flex aspect-square size-12 items-center justify-center rounded-full bg-gradient-to-r',
+                    'flex aspect-square size-12 items-center justify-center rounded-full bg-gradient-to-r text-foreground',
                     bgLogo,
                 )}
             >

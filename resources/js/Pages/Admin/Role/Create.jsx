@@ -1,4 +1,5 @@
 import HeaderTitle from '@/Components/HeaderTitle';
+import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
@@ -64,7 +65,7 @@ export default function Create(props) {
                                     placeholder="Masukkan nama untuk peran baru"
                                     onChange={(e) => setData(e.target.name, e.target.value)}
                                 />
-                                {errors.name && <InputError message={errors.name} />}
+                                {errors.name && <InputError message message={errors.name} />}
                             </div>
                         </div>
                         <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">

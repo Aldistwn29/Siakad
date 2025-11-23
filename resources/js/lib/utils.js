@@ -48,7 +48,6 @@ export const formatToRupiah = (amount) => {
         style: 'currency',
         currency: 'IDR',
         maximumFractionDigits: 0,
-        maximumSignificantDigits: 0,
     });
 
     return formatter.format(amount);
