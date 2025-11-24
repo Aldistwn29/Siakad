@@ -12,7 +12,15 @@ import UseFilter from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo, formatToRupiah } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
-import { IconArrowsDownUp, IconCircleKey, IconDroplet, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
+import {
+    IconArrowsDownUp,
+    IconCircleKey,
+    IconDroplet,
+    IconPencil,
+    IconPlus,
+    IconRefresh,
+    IconTrash,
+} from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {

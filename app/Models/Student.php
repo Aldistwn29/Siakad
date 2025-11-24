@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
@@ -14,7 +15,7 @@ class Student extends Model
         'fee_group_id',
         'semester',
         'batch',
-        'students_number'   
+        'students_number'
     ];
 
     public function user()
@@ -44,21 +45,58 @@ class Student extends Model
 
     public function attendances()
     {
-       return $this->hasMany(Attendance::class);
+        return $this->hasMany(Attendance::class);
     }
 
     public function grades()
     {
-       return $this->hasMany(Grade::class);
+        return $this->hasMany(Grade::class);
     }
 
     public function studyPlans()
     {
-       return $this->hasMany(StudenPlan::class);
+        return $this->hasMany(StudenPlan::class);
     }
 
     public function studyResults()
     {
-       return $this->hasMany(StudyResult::class);
+        return $this->hasMany(StudyResult::class);
+    }
+
+    // fungsi filter
+    public function scopeFilter(Builder $query, array $filters): void
+    {
+        $query->when($filters['search'] ?? null, function ($query, $search) {
+            $query->whereAny([
+                'student_number',
+                'semester',
+                'batch'
+            ], 'REGEXP', $search)
+                ->orWhereHas('user', fn($query) => $query->whereAny(['name', 'email'], 'REGEXP', $search))
+                ->orWhereHas('faculty', fn($query) => $query->where('name', 'REGEXP', $search))
+                ->orWhereHas('departemen', fn($query) => $query->where('name', 'REGEXP', $search));
+        });
+    }
+
+    // fungsi untuk sorting
+    public function scopeSorting(Builder $query, array $sorts): void
+    {
+        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
+            match ($sorts['field']) {
+                'faculty_id' => $query->join('fakultas', 'students.fakultas_id', '=', 'fakultas.id')
+                    ->orderBy('fakultas.name', $sorts['direction']),
+                'departement_id' => $query->join('departemens', 'students.departement_id', '=', 'departemens.id')
+                    ->orderBy('departemens.name', $sorts['direction']),
+                'name' => $query->join('users', 'students.user_id', '=', 'users.id')
+                    ->orderBy('users.name', $sorts['direction']),
+                'email' => $query->join('users', 'students.user_id', '=', 'users.id')
+                    ->orderBy('users.email', $sorts['direction']),
+                'fee_group_id' => $query->join('fee_groups', 'students.fee_group_id', '=', 'fee_groups.id')
+                    ->orderBy('fee_groups.group', $sorts['direction']),
+                'kelas_id' => $query->join('kelas', 'students.kelas_id', '=', 'kelas.id')
+                    ->orderBy('kelas.group', $sorts['direction']),
+                default => $query->orderBy($sorts['field'], $sorts['direction'])
+            };
+        });
     }
 }

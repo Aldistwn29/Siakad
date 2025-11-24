@@ -26,7 +26,6 @@ export default function Edit(props) {
         e.preventDefault();
         post(props.page_settings.action, {
             preserveScroll: true,
-            preserveScroll: true,
             onSuccess: (success) => {
                 const flash = useFlashMessage(success);
                 if (flash) toast[flash.type](flash.message);
