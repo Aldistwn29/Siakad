@@ -25,16 +25,11 @@ class StudentRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'min:3', 'max:255', Rule::unique('users')->ignore($this->student?->user)],
-            'password' => Rule::when($this->routeIs('admin.students.store'), [
-                'required',
-                'min:8',
-                'max:255'
-            ]),
-            Rule::when($this->routeIs('admin.students.update'), [
-                'nullable',
-                'min:8',
-                'max:255'
-            ]),
+            'password' => Rule::when(
+                $this->routeIs('admin.students.store'),
+                ['required', 'min:8', 'max:255'],
+                ['nullable', 'min:8', 'max:255']
+            ),
             'fakultas_id' => ['required', 'exists:fakultas,id'],
             'departement_id' => ['required', 'exists:departemens,id'],
             'fee_group_id' => ['required', 'exists:fee_groups,id'],
@@ -48,7 +43,7 @@ class StudentRequest extends FormRequest
 
     public function attributes()
     {
-        return[
+        return [
             'name' => 'Nama',
             'email' => 'Email',
             'password' => 'Password',

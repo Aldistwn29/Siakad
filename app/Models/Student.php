@@ -23,19 +23,19 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function faculty()
+    public function fakultas()
     {
-        return $this->belongsTo(Fakultas::class);
+        return $this->belongsTo(Fakultas::class, 'fakultas_id');
     }
 
-    public function departemen()
+    public function departement()
     {
-        return $this->belongsTo(Departemen::class);
+        return $this->belongsTo(Departemen::class, 'departement_id');
     }
 
-    public function classroom()
+    public function kelas()
     {
-        return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class, 'kelas_id');
     }
 
     public function feeGroup()

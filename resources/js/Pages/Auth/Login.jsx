@@ -104,7 +104,7 @@ export default function Login({ status, canResetPassword }) {
             </div>
             {/* end side left */}
 
-            {/* Side Right */}
+        {/* Side Right */}
             <div className="hidden bg-muted lg:block">
                 <img
                     src="/build/images/bg-login.webp"

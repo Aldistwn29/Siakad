@@ -50,7 +50,7 @@ class DepartementController extends Controller
                 'title' => 'Tambahkan program studi baru',
                 'subtitle' => 'Buat program studi baru disini, click simpan dan selesai',
                 'method' => 'POST',
-                'action' => route('admin.departemen.create')
+                'action' => route('admin.departemen.store')
             ],
             'faculties' => Fakultas::query()
                 ->select(['id', 'name'])

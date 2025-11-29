@@ -20,23 +20,24 @@ class StudentResource extends JsonResource
             'students_number' => $this->students_number,
             'semester' => $this->semester,
             'batch' => $this->batch,
+            'created_at' => $this->created_at,
             'user' => $this->whenLoaded('user', [
                 'id' => $this->user?->id,
                 'name' => $this->user?->name,
                 'email' => $this->user?->email,
                 'avatar' => $this->user?->avatar ? Storage::url($this->user?->avatar) : null,
             ]), 
-            'fakultas' => $this->whenLoaded('faculty', [
-                'id' => $this->faculty?->id,
-                'name' => $this->faculty?->name,
+            'fakultas' => $this->whenLoaded('fakultas', [
+                'id' => $this->fakultas?->id,
+                'name' => $this->fakultas?->name,
             ]), 
-            'departement' => $this->whenLoaded('departemen', [
-                'id' => $this->departemen?->id,
-                'name' => $this->departemen?->name,
+            'departement' => $this->whenLoaded('departement', [
+                'id' => $this->departement?->id,
+                'name' => $this->departement?->name,
             ]), 
-            'kelas' => $this->whenLoaded('classroom', [
-                'id' => $this->classroom?->id,
-                'name' => $this->classroom?->name,
+            'kelas' => $this->whenLoaded('kelas', [
+                'id' => $this->kelas?->id,
+                'name' => $this->kelas?->name,
             ]), 
             'feeGroup' => $this->whenLoaded('feeGroup', [
                 'id' => $this->feeGroup?->id,
