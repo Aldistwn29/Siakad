@@ -53,7 +53,7 @@ class FakultasController extends Controller
                 'title' => 'Tambahkan Fakultas',
                 'subtitle' => 'Buat fakutas baru disini, click simpan dan selesai',
                 'method' => 'POST',
-                'action' => route('admin.fakultas.create')
+                'action' => route('admin.fakultas.store')
             ]
         ]);
     }

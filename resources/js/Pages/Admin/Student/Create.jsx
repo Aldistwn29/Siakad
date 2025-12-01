@@ -28,7 +28,7 @@ export default function Create(props) {
         email: "",
         password: "",
         students_number: "",
-        semester: "",
+        semester: 1,
         batch: "",
         avatar: null,
         _method: props.page_settings.method,
@@ -95,45 +95,55 @@ export default function Create(props) {
                                     value={data.email}
                                     placeholder="Masukkan nama untuk email mahasiswa baru"
                                     onChange={onhandleChange}
-                                    />
+                                />
                                 {errors.email && <InputError message={errors.email} />}
                             </div>
                             {/* Password */}
                             <div className="col-span-2">
-                                <Label htmlFor="password">password</Label>
-                                <Input
-                                    type="text"
-                                    name="password"
-                                    id="password"
-                                    value={data.password}
-                                    placeholder="Masukkan nama untuk password mahasiswa baru"
-                                    onChange={onhandleChange}
-                                />
+                                <Label htmlFor="password">Password</Label>
+                                <div className="relative">
+                                    <Input
+                                        type={showPassword ? "text" : "password"}
+                                        name="password"
+                                        id="password"
+                                        value={data.password}
+                                        placeholder="Masukkan password mahasiswa baru"
+                                        onChange={onhandleChange}
+                                        className="pr-10"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute text-gray-500 -translate-y-1/2 right-3 top-1/2 hover:text-gray-700"
+                                    >
+                                        {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                                    </button>
+                                </div>
                                 {errors.password && <InputError message={errors.password} />}
                             </div>
                             {/* nama fakultas */}
-                            <div className="coll-span-full">
+                           <div className="col-span-full">
                                 <Label htmlFor="fakultas_id">Fakultas</Label>
                                 <Select defaultValue={String(data.fakultas_id)}
                                     onValueChange={(value) => setData('fakultas_id', value)}>
                                     <SelectTrigger>
                                         <SelectValue>
                                             {props.faculties.find((fakultas) => fakultas.value == data.fakultas_id)
-                                                ?.label ?? 'Pilih fakultas'}
+                                                ?.label ?? 'Pilih Fakultas'}
                                         </SelectValue>
-                                        <SelectContent>
-                                            {props.faculties.map((fakultas, index) => (
-                                                <SelectItem key={index} value={fakultas.value}>
-                                                    {fakultas.label}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
                                     </SelectTrigger>
+                                    <SelectContent>
+                                        {props.faculties.map((fakultas, index) => (
+                                            <SelectItem key={index} value={fakultas.value}>
+                                                {fakultas.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
                                 </Select>
                                 {errors.fakultas_id && <InputError message={errors.fakultas_id} />}
                             </div>
                             {/* program studi */}
-                            <div className="coll-span-full">
+                            <div className="col-span-full">
                                 <Label htmlFor="departement_id">Program Studi</Label>
                                 <Select defaultValue={String(data.departement_id)}
                                     onValueChange={(value) => setData('departement_id', value)}>
@@ -154,14 +164,14 @@ export default function Create(props) {
                                 {errors.departement_id && <InputError message={errors.departement_id} />}
                             </div>
                             {/* Kelas */}
-                            <div className="coll-span-full">
+                            <div className="col-span-full">
                                 <Label htmlFor="kelas_id">Kelas</Label>
                                 <Select defaultValue={String(data.kelas_id)}
                                     onValueChange={(value) => setData('kelas_id', value)}>
                                     <SelectTrigger>
                                         <SelectValue>
                                             {props.classroms.find((clasrom) => clasrom.value == data.kelas_id)
-                                                ?.label ?? 'Pilih program studi'}
+                                                ?.label ?? 'Pilih Kelas'}
                                         </SelectValue>
                                     </SelectTrigger>
                                     <SelectContent>
@@ -175,7 +185,7 @@ export default function Create(props) {
                                 {errors.kelas_id && <InputError message={errors.kelas_id} />}
                             </div>
                             {/* Golongan Ukt */}
-                            <div className="coll-span-full">
+                            <div className="col-span-full">
                                 <Label htmlFor="fee_group_id">Golongan UKT</Label>
                                 <Select defaultValue={String(data.fee_group_id)}
                                     onValueChange={(value) => setData('fee_group_id', value)}>
@@ -196,7 +206,7 @@ export default function Create(props) {
                                 {errors.fee_group_id && <InputError message={errors.fee_group_id} />}
                             </div>
                             {/* nomer pokok mahasiswa */}
-                            <div className="col-span-2">
+                            <div className="col-span-full">
                                 <Label htmlFor="students_number">Nomor Pokok Mahasiswa</Label>
                                 <Input
                                     type="text"
@@ -209,7 +219,7 @@ export default function Create(props) {
                                 {errors.students_number && <InputError message={errors.students_number} />}
                             </div>
                             {/* Semester*/}
-                            <div className="col-span-2">
+                            <div className="col-span-full">
                                 <Label htmlFor="semester">Semester</Label>
                                 <Input
                                     type="number"
@@ -222,7 +232,7 @@ export default function Create(props) {
                                 {errors.semester && <InputError message={errors.semester} />}
                             </div>
                             {/* Angkatan*/}
-                            <div className="col-span-2">
+                            <div className="col-span-full">
                                 <Label htmlFor="batch">Angkatan</Label>
                                 <Input
                                     type="text"

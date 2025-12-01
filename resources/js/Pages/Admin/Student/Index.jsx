@@ -20,7 +20,6 @@ import { useState } from 'react';
 
 export default function Index(props) {
     const { data: students, meta, links } = props.students;
-    console.log(students);
     const [params, setParams] = useState(props.state);
     // --- Hooks Filter (debounce 300ms)
     UseFilter({
@@ -278,7 +277,7 @@ export default function Index(props) {
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
                                                 <Button variant="blue" size="sm" asChild>
-                                                    <Link href={route('admin.kelas.edit', [student])}>
+                                                    <Link href={route('admin.students.edit', [student])}>
                                                         <IconPencil className="size-4" />
                                                     </Link>
                                                 </Button>
@@ -289,7 +288,7 @@ export default function Index(props) {
                                                         </Button>
                                                     }
                                                     action={() =>
-                                                        deleteAction(route('admin.kelas.destroy', [student]))
+                                                        deleteAction(route('admin.students.destroy', [student]))
                                                     }
                                                 />
                                             </div>

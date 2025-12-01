@@ -80,6 +80,6 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::post('students/create', 'store')->name('admin.students.store');
         Route::get('students/create/{student:students_number}', 'edit')->name('admin.students.edit');
         Route::put('students/create/{student:students_number}', 'update')->name('admin.students.update');
-        Route::delete('students/delete/{student:student_number}', 'destroy')->name('admin.students.destroy');
+        Route::delete('students/delete/{student:students_number}', 'destroy')->name('admin.students.destroy');
     });
 });

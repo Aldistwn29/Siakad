@@ -24,7 +24,7 @@ class StudentRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'min:3', 'max:255'],
-            'email' => ['required', 'string', 'min:3', 'max:255', Rule::unique('users')->ignore($this->student?->user)],
+            'email' => ['required', 'string', 'email', 'min:3', 'max:255', Rule::unique('users')->ignore($this->student?->user)],
             'password' => Rule::when(
                 $this->routeIs('admin.students.store'),
                 ['required', 'min:8', 'max:255'],
@@ -34,7 +34,7 @@ class StudentRequest extends FormRequest
             'departement_id' => ['required', 'exists:departemens,id'],
             'fee_group_id' => ['required', 'exists:fee_groups,id'],
             'kelas_id' => ['required', 'exists:kelas,id'],
-            'student_number' => ['required', 'max:13'],
+            'students_number' => ['required', 'max:13'], 
             'semester' => ['required', 'integer'],
             'batch' => ['required', 'integer'],
             'avatar' => ['nullable', 'mimes:png,jpg,jpeg,webp'],
@@ -50,7 +50,7 @@ class StudentRequest extends FormRequest
             'fakultas_id' => 'Fakultas',
             'departement_id' => 'Program Studi',
             'fee_group_id' => 'Golongan Ukt',
-            'student_number' => 'Student Number',
+            'students_number' => 'Nomor Pokok Mahasiswa', 
             'semester' => 'Semester',
             'batch' => 'Angkatan',
             'kelas_id' => 'Kelas',
