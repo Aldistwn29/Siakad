@@ -67,7 +67,7 @@ export default function Edit(props) {
                                     value={data.name}
                                     onChange={(e) => setData(e.target.name, e.target.value)}
                                 />
-                                {errors.name && <InputError message message={errors.name} />}
+                                {errors.name && <InputError message={errors.name} />}
                             </div>
                             {/* Logo */}
                             <div className="col-span-full">
@@ -79,7 +79,7 @@ export default function Edit(props) {
                                     onChange={(e) => setData(e.target.name, e.target.files[0])}
                                     ref={fileInputLogo}
                                 />
-                                {errors.logo && <InputError message message={errors.logo} />}
+                                {errors.logo && <InputError message={errors.logo} />}
                             </div>
                             <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
                                 <Button variant="red" size="xl" type="submit" onClick={onHandleReset}>

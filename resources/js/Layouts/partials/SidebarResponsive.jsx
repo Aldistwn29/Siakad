@@ -50,8 +50,8 @@ export default function SidebarResponsive({ auth, url }) {
         return false;
     };
     return (
-        <div className="mt-4 flex flex-1 flex-col">
-            <ul className="flex flex-1 flex-col" role="list">
+        <div className="flex flex-col flex-1 mt-4">
+            <ul className="flex flex-col flex-1" role="list">
                 {/* Menu items */}
                 {/* Role:Admin */}
                 {hasRole('Admin') && (
@@ -98,7 +98,7 @@ export default function SidebarResponsive({ auth, url }) {
                         <div className="px-3 py-2 text-xs font-medium text-white">Pengguna</div>
                         <NavLink active={url.startsWith('/admin/students')} title="Mahasiswa" icon={IconUsers} />
                         <NavLink
-                            url="#"
+                            url={route('admin.teachers.index')}
                             active={url.startsWith('/admin/teachers')}
                             title="Dosen"
                             icon={IconUsersGroup}
@@ -169,7 +169,7 @@ export default function SidebarResponsive({ auth, url }) {
                         />
                         <div className="px-3 py-2 text-xs font-medium text-white">Pengguna</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.students.index')}
                             active={url.startsWith('/students/dashbord')}
                             title="Mahasiswa"
                             icon={IconSchool}

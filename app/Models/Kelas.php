@@ -33,7 +33,7 @@ class Kelas extends Model
 
     public function departemen()
     {
-        return $this->belongsTo(Departemen::class);
+        return $this->belongsTo(Departemen::class, 'departemen_id');
     }
 
     public function acdemicYear()
@@ -66,14 +66,14 @@ class Kelas extends Model
     // function filter
     public function scopeFilter(Builder $query, array $filters)
     {
-        $query->when($filters['search'] ?? null, function($query, $search){
+        $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->where('name', 'REGEXP', $search);
         });
     }
     // function search
     public function scopeSorting(Builder $query, array $sorts)
     {
-        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function($query) use($sorts){
+        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function ($query) use ($sorts) {
             $query->orderBy($sorts['field'], $sorts['direction']);
         });
     }

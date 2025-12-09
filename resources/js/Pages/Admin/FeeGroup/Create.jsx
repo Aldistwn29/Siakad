@@ -4,11 +4,10 @@ import { Button } from '@/Components/ui/button';
 import { Card, CardContent } from '@/Components/ui/card';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
 import AppLayout from '@/Layouts/AppLayout';
 import useFlashMessage from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconCheck, IconDoor, IconDroplet, IconRefresh } from '@tabler/icons-react';
+import { IconArrowLeft, IconCheck, IconDroplet, IconRefresh } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
 export default function Create(props) {
@@ -28,7 +27,6 @@ export default function Create(props) {
     const onhandleSubmit = (e) => {
         e.preventDefault();
         post(props.page_settings.action, {
-            preserveScroll: true,
             preserveScroll: true,
             onSuccess: (success) => {
                 const flash = useFlashMessage(success);
@@ -62,27 +60,27 @@ export default function Create(props) {
                             {/* Golongan */}
                             <div className="col-span-full">
                                 <Label htmlFor="group">Golongan</Label>
-                               <Input
+                                <Input
                                     type="number"
                                     name="group"
                                     id="group"
                                     value={data.group}
                                     placeholder="Masukkan golongan ukt baru"
                                     onChange={(e) => setData(e.target.name, e.target.value)}
-                                    />
+                                />
                                 {errors.group && <InputError message={errors.group} />}
                             </div>
                             {/* Jumlah */}
                             <div className="col-span-full">
                                 <Label htmlFor="amount">Jumlah</Label>
-                                <Input 
+                                <Input
                                     type="number"
                                     name="amount"
                                     id="amount"
                                     value={data.amount}
                                     placeholder="Masukkan jumlah nominal ukt baru"
                                     onChange={(e) => setData(e.target.name, e.target.value)}
-                                    />
+                                />
                                 {errors.amount && <InputError message={errors.amount} />}
                             </div>
                         </div>
