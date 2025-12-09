@@ -9,7 +9,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import useFlashMessage from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
 import { SelectValue } from '@radix-ui/react-select';
-import { IconArrowLeft, IconCheck, IconDoor, IconRefresh, IconUser } from '@tabler/icons-react';
+import { IconArrowLeft, IconCheck, IconRefresh, IconUser } from '@tabler/icons-react';
 import { Eye, EyeOff } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
@@ -24,12 +24,12 @@ export default function Edit(props) {
         departement_id: props.student.departement_id ?? null,
         kelas_id: props.student.kelas_id ?? null,
         fee_group_id: props.student.fee_group_id ?? null,
-        name: props.student.user.name ?? "",
-        email:props.student.user.email ?? "",
-        password: "",
-        students_number: props.student.students_number ?? "",
+        name: props.student.user.name ?? '',
+        email: props.student.user.email ?? '',
+        password: '',
+        students_number: props.student.students_number ?? '',
         semester: props.student.semester ?? 1,
-        batch: props.student.batch ??"",
+        batch: props.student.batch ?? '',
         avatar: null,
         _method: props.page_settings.method,
     });
@@ -54,8 +54,8 @@ export default function Edit(props) {
     };
 
     return (
-        <div className="flex flex-col w-full pb-32">
-            <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
+        <div className="flex w-full flex-col pb-32">
+            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
@@ -103,7 +103,7 @@ export default function Edit(props) {
                                 <Label htmlFor="password">Password</Label>
                                 <div className="relative">
                                     <Input
-                                        type={showPassword ? "text" : "password"}
+                                        type={showPassword ? 'text' : 'password'}
                                         name="password"
                                         id="password"
                                         value={data.password}
@@ -114,7 +114,7 @@ export default function Edit(props) {
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        className="absolute text-gray-500 -translate-y-1/2 right-3 top-1/2 hover:text-gray-700"
+                                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
                                     >
                                         {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                                     </button>
@@ -122,10 +122,12 @@ export default function Edit(props) {
                                 {errors.password && <InputError message={errors.password} />}
                             </div>
                             {/* nama fakultas */}
-                           <div className="col-span-full">
+                            <div className="col-span-full">
                                 <Label htmlFor="fakultas_id">Fakultas</Label>
-                                <Select defaultValue={String(data.fakultas_id)}
-                                    onValueChange={(value) => setData('fakultas_id', value)}>
+                                <Select
+                                    defaultValue={String(data.fakultas_id)}
+                                    onValueChange={(value) => setData('fakultas_id', value)}
+                                >
                                     <SelectTrigger>
                                         <SelectValue>
                                             {props.faculties.find((fakultas) => fakultas.value == data.fakultas_id)
@@ -145,12 +147,15 @@ export default function Edit(props) {
                             {/* program studi */}
                             <div className="col-span-full">
                                 <Label htmlFor="departement_id">Program Studi</Label>
-                                <Select defaultValue={String(data.departement_id)}
-                                    onValueChange={(value) => setData('departement_id', value)}>
+                                <Select
+                                    defaultValue={String(data.departement_id)}
+                                    onValueChange={(value) => setData('departement_id', value)}
+                                >
                                     <SelectTrigger>
                                         <SelectValue>
-                                            {props.departements.find((departemen) => departemen.value == data.departement_id)
-                                                ?.label ?? 'Pilih program studi'}
+                                            {props.departements.find(
+                                                (departemen) => departemen.value == data.departement_id,
+                                            )?.label ?? 'Pilih program studi'}
                                         </SelectValue>
                                     </SelectTrigger>
                                     <SelectContent>
@@ -166,12 +171,14 @@ export default function Edit(props) {
                             {/* Kelas */}
                             <div className="col-span-full">
                                 <Label htmlFor="kelas_id">Kelas</Label>
-                                <Select defaultValue={String(data.kelas_id)}
-                                    onValueChange={(value) => setData('kelas_id', value)}>
+                                <Select
+                                    defaultValue={String(data.kelas_id)}
+                                    onValueChange={(value) => setData('kelas_id', value)}
+                                >
                                     <SelectTrigger>
                                         <SelectValue>
-                                            {props.classroms.find((clasrom) => clasrom.value == data.kelas_id)
-                                                ?.label ?? 'Pilih Kelas'}
+                                            {props.classroms.find((clasrom) => clasrom.value == data.kelas_id)?.label ??
+                                                'Pilih Kelas'}
                                         </SelectValue>
                                     </SelectTrigger>
                                     <SelectContent>
@@ -187,8 +194,10 @@ export default function Edit(props) {
                             {/* Golongan Ukt */}
                             <div className="col-span-full">
                                 <Label htmlFor="fee_group_id">Golongan UKT</Label>
-                                <Select defaultValue={String(data.fee_group_id)}
-                                    onValueChange={(value) => setData('fee_group_id', value)}>
+                                <Select
+                                    defaultValue={String(data.fee_group_id)}
+                                    onValueChange={(value) => setData('fee_group_id', value)}
+                                >
                                     <SelectTrigger>
                                         <SelectValue>
                                             {props.feeGroups.find((feeGroup) => feeGroup.value == data.fee_group_id)
@@ -257,7 +266,7 @@ export default function Edit(props) {
                                 {errors.avatar && <InputError message={errors.avatar} />}
                             </div>
                         </div>
-                        <div className="flex flex-col gap-2 mt-8 lg:flex-row lg:justify-end">
+                        <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
                             <Button variant="red" size="xl" type="button" onClick={handleReset}>
                                 <IconRefresh className="size-4" />
                                 Reset

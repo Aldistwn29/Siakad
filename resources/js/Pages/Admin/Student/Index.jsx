@@ -14,8 +14,7 @@ import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
 import { Avatar } from '@radix-ui/react-avatar';
-import { IconArrowsDownUp, IconDoor, IconPencil, IconPlus, IconRefresh, IconTrash, IconUser } from '@tabler/icons-react';
-import { formatDate } from 'date-fns';
+import { IconArrowsDownUp, IconPencil, IconPlus, IconRefresh, IconTrash, IconUser } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -57,8 +56,8 @@ export default function Index(props) {
     };
 
     return (
-        <div className="flex flex-col w-full pb-32">
-            <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
+        <div className="flex w-full flex-col pb-32">
+            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
@@ -73,8 +72,8 @@ export default function Index(props) {
             </div>
             {/* Card */}
             <Card>
-                <CardHeader className="p-0 mb-4">
-                    <div className="flex flex-col items-center w-full gap-4 px-6 py-4 lg:flex-row">
+                <CardHeader className="mb-4 p-0">
+                    <div className="flex w-full flex-col items-center gap-4 px-6 py-4 lg:flex-row">
                         <Input
                             className="w-full sm:w-1/3"
                             placeholder="Cari berdasarkan mahasiswa..."
@@ -120,37 +119,53 @@ export default function Index(props) {
                                 <TableRow>
                                     {/* id */}
                                     <TableHead>
-                                        <Button variant="ghost" className="inline-flex group" onClick={() => onSortable('id')}>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('id')}
+                                        >
                                             #
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
-                                                <IconArrowsDownUp className='size-4'/>
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
                                     {/* Nama */}
                                     <TableHead>
-                                        <Button variant="ghost" className="inline-flex group" onClick={() => onSortable('name')}>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('name')}
+                                        >
                                             Nama
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
-                                                <IconArrowsDownUp className='size-4'/>
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
                                     {/* Email */}
                                     <TableHead>
-                                        <Button variant="ghost" className="inline-flex group" onClick={() => onSortable('email')}>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('email')}
+                                        >
                                             Email
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
-                                                <IconArrowsDownUp className='size-4'/>
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
                                     {/* Fakultas */}
                                     <TableHead>
-                                        <Button variant="ghost" className="inline-flex group" onClick={() => onSortable('fakultas_id')}>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('fakultas_id')}
+                                        >
                                             Fakultas
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
-                                                <IconArrowsDownUp className='size-4'/>
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
@@ -158,11 +173,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('departement_id')}
                                         >
                                             Program studi
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -171,21 +186,25 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('kelas_id')}
                                         >
                                             Kelas
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
                                     {/* Golomgan Ukt */}
                                     <TableHead>
-                                        <Button variant="ghost" className="inline-flex group" onClick={() => onSortable('fee_group_id')}>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('fee_group_id')}
+                                        >
                                             Golongan UKT
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
-                                                <IconArrowsDownUp className='size-4'/>
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
@@ -193,11 +212,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('students_number')}
                                         >
                                             Nomor Poko Mahasiswa
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -206,11 +225,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('semester')}
                                         >
                                             semester
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -219,11 +238,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('batch')}
                                         >
                                             Angkatan
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -233,10 +252,10 @@ export default function Index(props) {
                                         Dibuat pada
                                         <Button
                                             variant="ghost"
-                                            className="inline-flex group"
+                                            className="group inline-flex"
                                             onClick={() => onSortable('created_at')}
                                         >
-                                            <span className="flex-none ml-2 rounded text-muted-foreground">
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -251,7 +270,7 @@ export default function Index(props) {
                                         {/* Nama */}
                                         <TableCell className="flex items-center gap-2">
                                             <Avatar>
-                                                <AvatarImage src={student.user.avtar}/>
+                                                <AvatarImage src={student.user.avtar} />
                                                 <AvatarFallback>{student.user.name.substring(0, 1)}</AvatarFallback>
                                             </Avatar>
                                             <span>{student.user.name}</span>
@@ -300,7 +319,7 @@ export default function Index(props) {
                     )}
                 </CardContent>
 
-                <CardFooter className="flex flex-col items-center justify-between w-full py-3 border-t gap-y-2 lg:flex-row">
+                <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
                     <p className="text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
                         {meta.total} mahasiswa

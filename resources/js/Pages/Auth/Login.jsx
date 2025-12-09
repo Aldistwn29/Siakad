@@ -56,7 +56,7 @@ export default function Login({ status, canResetPassword }) {
                                         value={data.email}
                                         onChange={(e) => setData(e.target.name, e.target.value)}
                                     />
-                                    {errors.email &&<InputError message={errors.email} />}
+                                    {errors.email && <InputError message={errors.email} />}
                                 </div>
 
                                 {/* Password */}
@@ -73,7 +73,7 @@ export default function Login({ status, canResetPassword }) {
                                         value={data.password}
                                         onChange={(e) => setData(e.target.name, e.target.value)}
                                     />
-                                    {errors.password &&<InputError message={errors.password} />}
+                                    {errors.password && <InputError message={errors.password} />}
                                 </div>
 
                                 {/* Remember */}
@@ -104,7 +104,7 @@ export default function Login({ status, canResetPassword }) {
             </div>
             {/* end side left */}
 
-        {/* Side Right */}
+            {/* Side Right */}
             <div className="hidden bg-muted lg:block">
                 <img
                     src="/build/images/bg-login.webp"

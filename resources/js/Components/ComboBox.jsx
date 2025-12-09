@@ -4,6 +4,7 @@ import { PopoverContent } from '@radix-ui/react-popover';
 import { IconCheck, IconChevronDown } from '@tabler/icons-react';
 import { useState } from 'react';
 import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
 
 export function ComboBox({ items, selectedItem, onSelect, placeholder = 'Pilih Item ...' }) {
     const [isOpen, setOpen] = useState(false);
@@ -19,7 +20,7 @@ export function ComboBox({ items, selectedItem, onSelect, placeholder = 'Pilih I
                     <Button
                         variant="outline"
                         role="combobox"
-                        ariaExpanded={isOpen}
+                        aria-expanded={isOpen}
                         className="w-full justify-between"
                         size="xl"
                     >

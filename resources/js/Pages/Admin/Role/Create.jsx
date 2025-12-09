@@ -64,7 +64,7 @@ export default function Create(props) {
                                     placeholder="Masukkan nama untuk peran baru"
                                     onChange={(e) => setData(e.target.name, e.target.value)}
                                 />
-                                {errors.name &&<InputError message={errors.name} />}
+                                {errors.name && <InputError message={errors.name} />}
                             </div>
                         </div>
                         <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
