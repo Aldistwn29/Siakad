@@ -12,7 +12,7 @@ import UseFilter from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
-import { IconArrowsDownUp, IconDoor, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
+import { IconArrowsDownUp, IconDoor, IconPencil, IconPlus, IconRefresh, IconTrash, IconUsersGroup } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
@@ -54,13 +54,14 @@ export default function Index(props) {
     };
 
     return (
-        <div className="flex w-full flex-col pb-32">
-            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
+        <div className="flex flex-col w-full pb-32">
+            <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
                     icon={IconDoor}
                 />
+                {/* Tambah Mahasiswa */}
                 <Button asChild variant="orange" size="xl" className="w-full lg:w-auto">
                     <Link href={route('admin.kelas.create')}>
                         <IconPlus className="size-4" />
@@ -70,8 +71,8 @@ export default function Index(props) {
             </div>
             {/* Card */}
             <Card>
-                <CardHeader className="mb-4 p-0">
-                    <div className="flex w-full flex-col items-center gap-4 px-6 py-4 lg:flex-row">
+                <CardHeader className="p-0 mb-4">
+                    <div className="flex flex-col items-center w-full gap-4 px-6 py-4 lg:flex-row">
                         <Input
                             className="w-full sm:w-1/3"
                             placeholder="Cari berdasarkan program studi..."
@@ -120,11 +121,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="group inline-flex"
+                                            className="inline-flex group"
                                             onClick={() => onSortable('facultas_id')}
                                         >
                                             Fakultas
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -133,11 +134,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="group inline-flex"
+                                            className="inline-flex group"
                                             onClick={() => onSortable('departemen_id')}
                                         >
                                             Program Studi
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -146,11 +147,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="group inline-flex"
+                                            className="inline-flex group"
                                             onClick={() => onSortable('academic_year_id')}
                                         >
                                             Tahun Ajaran
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -159,11 +160,11 @@ export default function Index(props) {
                                     <TableHead>
                                         <Button
                                             variant="ghost"
-                                            className="group inline-flex"
+                                            className="inline-flex group"
                                             onClick={() => onSortable('name')}
                                         >
                                             Nama
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -173,10 +174,10 @@ export default function Index(props) {
                                         Dibuat pada
                                         <Button
                                             variant="ghost"
-                                            className="group inline-flex"
+                                            className="inline-flex group"
                                             onClick={() => onSortable('created_at')}
                                         >
-                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                            <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
@@ -195,6 +196,11 @@ export default function Index(props) {
                                         <TableCell>{formatDateIndo(classrom.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
+                                                 <Button variant="purple" size="sm" asChild>
+                                                    <Link href={route('admin.classroms-students.index', [classrom])}>
+                                                        <IconUsersGroup className="size-4" />
+                                                    </Link>
+                                                </Button>
                                                 <Button variant="blue" size="sm" asChild>
                                                     <Link href={route('admin.kelas.edit', [classrom])}>
                                                         <IconPencil className="size-4" />
@@ -219,7 +225,7 @@ export default function Index(props) {
                     )}
                 </CardContent>
 
-                <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
+                <CardFooter className="flex flex-col items-center justify-between w-full py-3 border-t gap-y-2 lg:flex-row">
                     <p className="text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
                         {meta.total} Kelas

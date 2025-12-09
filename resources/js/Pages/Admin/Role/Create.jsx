@@ -24,7 +24,6 @@ export default function Create(props) {
         e.preventDefault();
         post(props.page_settings.action, {
             preserveScroll: true,
-            preserveScroll: true,
             onSuccess: (success) => {
                 const flash = useFlashMessage(success);
                 if (flash) toast[flash.type](flash.message);
@@ -65,7 +64,7 @@ export default function Create(props) {
                                     placeholder="Masukkan nama untuk peran baru"
                                     onChange={(e) => setData(e.target.name, e.target.value)}
                                 />
-                                {errors.name && <InputError message message={errors.name} />}
+                                {errors.name && <InputError message={errors.name} />}
                             </div>
                         </div>
                         <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
