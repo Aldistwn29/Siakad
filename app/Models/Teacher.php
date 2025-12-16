@@ -22,46 +22,59 @@ class Teacher extends Model
 
     public function faculty()
     {
-        return $this->belongsTo(Fakultas::class);
+        return $this->belongsTo(Fakultas::class, 'fakultas_id');
     }
 
     public function departemen()
     {
-        return $this->belongsTo(Departemen::class);
+        return $this->belongsTo(Departemen::class, 'departement_id');
     }
 
     // fungsi teacher
     public function scopeFilter(Builder $query, array $filter) : void
     {
-        $query->when($filter['search'] ?? null, function($query, $search){
-            $query->whereAny([
-                'academic_title',
-                'teachers_number',
-            ], 'REGEXP', $search)
-            ->orWhereHas('user', fn($query) => $query->whereAny(['name', 'email'], 'REGEXP', $search))
-            ->orWhereHas('faculty', fn($query) => $query->where('id',  $search))
-            ->orWhereHas('departemen', fn($query) => $query->where('id',  $search));
+        $query->when(filled($filter['search'] ?? null),
+        function($query) use ($filter){
+            $search = $filter['search'];
+            $query->where(function($q) use ($search){
+                $q->where('academic_title', 'LIKE', "%{$search}%")
+                    ->orWhere('teachers_number', 'LIKE', "%{$search}%")
+                    ->orWhereHas('user', function($q) use ($search){
+                        $q->where('name', 'LIKE', "%{$search}%")
+                            ->orWhere('email', 'LIKE', "%{$search}%");
+                    });
+                if(is_numeric($search)){
+                    $q->orWhereHas('faculty', fn($q) => $q->where('id', $search))
+                        ->orWhereHas('departemen', fn($q) => $q->where('id', $search));
+                }
+            });
         });
     }
 
     // fungsi sorting
     public function scopeSorting(Builder $query, array $sorts) : void
     {
-        $query->when($sorts['field'] ?? null && $sorts['direction'] ?? null, function($query) use ($sorts){
-            match ($sorts['field']){
-                'fakultas_id' => $query->join('fakultas', 'teachers.fakultas_id', '=', 'fakultas.id')
-                    ->orderBy('fakultas.name', $sorts['direction']),
-                'departement_id' => $query->join('departemens', 'teachers.departement_id', '=', 'departemens.id')
-                    ->orderBy('departemens.name', $sorts['direction']),
-                'id' => $query->join('users', 'users.id', '=', 'users.id')
-                    ->orderBy('users.id', $sorts['direction']),
-                'name' => $query->join('users', 'users.name', '=', 'users.name')
-                    ->orderBy('users.name', $sorts['direction']),
-                'email' => $query->join('users', 'users.email', '=', 'users.email')
-                    ->orderBy('users.email', $sorts['direction']),
-                default => $query->orderBy($sorts['field'], $sorts['direction']),
-            };
-        });
-    }
+        if(empty($sorts['field']) ||empty($sorts['direction'])){
+            return;
+        }
 
+        match($sorts['field']){
+            'fakultas_id' => $query->leftJoin('fakultas', 'teachers.fakultas_id', '=', 'fakultas.id')
+                ->select('teachers.*')
+                ->orderBy('fakultas.name', $sorts['direction']),
+            'departemen_id' => $query->leftJoin('departemens', 'teachers.departement_id', '=', 'departemens.id')
+                ->select('teachers.*')
+                ->orderBy('departemens.name', $sorts['direction']),
+            'name' => $query->leftJoin('users', 'teachers.user_id', '=', 'users.id')
+                ->select('teachers.*')
+                ->orderBy('users.name', $sorts['direction']),
+            'email' => $query->leftJoin('users', 'teachers.user_id', '=', 'users.id')
+                ->select('teachers.*')
+                ->orderBy('users.email', $sorts['direction']),
+            default => $query->orderBy(
+                'teachers.'.$sorts['field'],
+                $sorts['direction']
+            ),
+        };
+    }
 }

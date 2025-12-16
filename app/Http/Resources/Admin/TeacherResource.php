@@ -19,20 +19,27 @@ class TeacherResource extends JsonResource
             'id' => $this->id,
             'teachers_number' => $this->teachers_number,
             'academic_title' => $this->academic_title,
-            'user' => $this->whenLoaded('user', [
-                'id' => $this->user->id,
-                'name' => $this->user->name,
-                'email' => $this->user->email,
-                'avatar' => $this->user->avatar ? Storage::url($this->user->avatar) : null,
-            ]),
-            'faculty' => $this->whenLoaded('faculty', [
-                'id' => $this->faculty->id,
-                'name' => $this->faculty->name,
-            ]),
-            'departemen' => $this->whenLoaded('departemen', [
-                'id' => $this->departemen->id,
-                'name' => $this->departemen->name,
-            ]),
+            'created_at' => $this->created_at,
+            'user' => $this->whenLoaded('user', function () {
+                return [
+                    'id' => $this->user->id,
+                    'name' => $this->user->name,
+                    'email' => $this->user->email,
+                    'avatar' => $this->user->avatar ? Storage::url($this->user->avatar) : null,
+                ];
+            }),
+            'faculty' => $this->whenLoaded('faculty', function () {
+                return [
+                    'id' => $this->faculty?->id,
+                    'name' => $this->faculty?->name,
+                ];
+            }),
+            'departemen' => $this->whenLoaded('departemen', function () {
+                return [
+                    'id' => $this->departemen?->id,
+                    'name' => $this->departemen?->name,
+                ];
+            }),
         ];
     }
 }

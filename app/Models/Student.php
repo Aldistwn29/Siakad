@@ -68,13 +68,13 @@ class Student extends Model
     {
         $query->when($filters['search'] ?? null, function ($query, $search) {
             $query->whereAny([
-                'student_number',
+                'students_number',
                 'semester',
                 'batch'
             ], 'REGEXP', $search)
                 ->orWhereHas('user', fn($query) => $query->whereAny(['name', 'email'], 'REGEXP', $search))
-                ->orWhereHas('faculty', fn($query) => $query->where('name', 'REGEXP', $search))
-                ->orWhereHas('departemen', fn($query) => $query->where('name', 'REGEXP', $search));
+                ->orWhereHas('fakultas', fn($query) => $query->where('name', 'REGEXP', $search))
+                ->orWhereHas('departement', fn($query) => $query->where('name', 'REGEXP', $search));
         });
     }
 
