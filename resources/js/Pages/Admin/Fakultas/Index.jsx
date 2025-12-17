@@ -24,11 +24,8 @@ import {
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: fakultas, meta, links } = props.fakulties;
-
+    const { data: fakulties, meta, links } = props.fakulties;
     const [params, setParams] = useState({ ...props.state });
-    const [instantReload, setInstantReload] = useState(false);
-
     // --- Hooks Filter (debounce 300ms)
     UseFilter({
         route: route('admin.fakultas.index'),
@@ -51,6 +48,18 @@ export default function Index(props) {
             replace: true,
         });
     };
+
+    // onSortable
+    const onSortTable = (field) => {
+        const direction = params.field == field && params.direction === 'asc' ? 'desc' : 'asc';
+        const updated = { ...params, field, direction };
+        router.get(route('admin.fakultas.index'), updated, {
+            only: ['fakultas'],
+            preserveScroll: true,
+            preserveState: true,
+            replace: true,
+        });
+    }
 
     // --- Reset filter
     const handleReset = () => {
@@ -123,7 +132,7 @@ export default function Index(props) {
                     </CardHeader>
 
                     <CardContent className="pb-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
-                        {fakultas.length === 0 ? (
+                        {fakulties.length === 0 ? (
                             <EmptyState
                                 title="Data kosong"
                                 subtitle="Silahkan untuk menambahkan data baru"
@@ -138,7 +147,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('id')}
+                                                onClick={() => onSortTable('id')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
@@ -150,7 +159,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('name')}
+                                                onClick={() =>  onSortTable('name')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
@@ -162,7 +171,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('code')}
+                                                onClick={() =>  onSortTable('code')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
@@ -174,7 +183,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('logo')}
+                                                onClick={() =>  onSortTable('logo')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
@@ -186,7 +195,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() => onSortable('created_at')}
+                                                onClick={() =>  onSortTable('created_at')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
@@ -197,7 +206,7 @@ export default function Index(props) {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {fakultas.map((faculty, index) => (
+                                    {fakulties.map((faculty, index) => (
                                         <TableRow key={index}>
                                             <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
                                             <TableCell>{faculty.name}</TableCell>
