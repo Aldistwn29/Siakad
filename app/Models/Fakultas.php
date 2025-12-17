@@ -53,12 +53,15 @@ class Fakultas extends Model
 
     public function scopeFilter(Builder $query, array $filters): void
     {
-        $query->when($filters['search'] ?? null, function ($query, $search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('code', 'like', "%{$search}%");
-            });
-        });
+       if(empty($filters['search'])){
+        return;
+       }
+
+       $search = trim($filters['search']);
+       $query->where(function (Builder $q) use ($search) {
+        $q->where('name', 'LIKE', "%{$search}%")
+            ->orWhere('code', 'LIKE', "%{$search}%");
+       });
     }
 
     public function scopeSorting(Builder $query, array $sorts): void
