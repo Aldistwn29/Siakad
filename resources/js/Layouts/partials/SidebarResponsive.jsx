@@ -96,14 +96,24 @@ export default function SidebarResponsive({ auth, url }) {
                         />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Pengguna</div>
-                        <NavLink active={url.startsWith('/admin/students')} title="Mahasiswa" icon={IconUsers} />
+                        <NavLink
+                            href={route('admin.students.index')}
+                            active={url.startsWith('/admin/students')}
+                            title="Mahasiswa"
+                            icon={IconUsers}
+                        />
                         <NavLink
                             url={route('admin.teachers.index')}
                             active={url.startsWith('/admin/teachers')}
                             title="Dosen"
                             icon={IconUsersGroup}
                         />
-                        <NavLink url="#" active={url.startsWith('/admin/operators')} title="Operator" icon={IconUser} />
+                        <NavLink
+                            url={route('admin.operators.index')}
+                            active={url.startsWith('/admin/operators')}
+                            title="Operator"
+                            icon={IconUser}
+                        />
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Jadwal</div>
                         <NavLink

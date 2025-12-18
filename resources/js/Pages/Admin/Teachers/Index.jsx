@@ -164,7 +164,7 @@ export default function Index(props) {
                                     {/* Departemen */}
                                     <TableHead>
                                         <Button variant="ghost" className="inline-flex group" onClick={() => onSortTable('departemen_id')}>
-                                            Nama Jurusan
+                                            Program studi
                                             <span className="flex-none ml-2 rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
