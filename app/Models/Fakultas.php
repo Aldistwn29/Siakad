@@ -48,7 +48,7 @@ class Fakultas extends Model
 
     public function operators()
     {
-        return $this->hasMany(Operator::class);
+        return $this->hasMany(Operator::class, 'fakultas_id', 'id');
     }
 
     public function scopeFilter(Builder $query, array $filters): void

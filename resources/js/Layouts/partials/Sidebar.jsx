@@ -45,7 +45,6 @@ export default function Sidebar({ auth, url }) {
                             <span className="text-xs truncate">{getRoleName()}</span>
                         </div>
                     </Link>
-
                     {/* Menu items */}
                     {/* Role:Admin */}
                     {hasRole('Admin') && (
@@ -56,7 +55,6 @@ export default function Sidebar({ auth, url }) {
                                 title="Dashboard"
                                 icon={IconLayout2}
                             />
-
                             <div className="px-3 py-2 text-xs font-medium text-white">Master</div>
                             <NavLink
                                 url={route('admin.fakultas.index')}
@@ -88,7 +86,6 @@ export default function Sidebar({ auth, url }) {
                                 title="Peran"
                                 icon={IconCircleKey}
                             />
-
                             <div className="px-3 py-2 text-xs font-medium text-white">Pengguna</div>
                             <NavLink
                                 url={route('admin.students.index')}
@@ -103,7 +100,7 @@ export default function Sidebar({ auth, url }) {
                                 icon={IconUsersGroup}
                             />
                             <NavLink
-                                url="#"
+                                url={route('admin.operators.index')}
                                 active={url.startsWith('/admin/operators')}
                                 title="Operator"
                                 icon={IconUser}

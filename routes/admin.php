@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\FakultasController;
 use App\Http\Controllers\Admin\FeeGroupController;
 use App\Http\Controllers\Admin\KelasController;
+use App\Http\Controllers\Admin\OperatorController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\TeacherController;
@@ -100,5 +101,15 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('teachers/edit/{teacher:teachers_number}', 'edit')->name('admin.teachers.edit');
         Route::put('teachers/edit/{teacher:teachers_number}', 'update')->name('admin.teachers.update');
         Route::delete('teachers/destroy/{teacher:teachers_number}', 'destroy')->name('admin.teachers.destroy');
+    });
+
+     // route admin controller
+    Route::controller(OperatorController::class)->group(function() {
+        Route::get('operators', 'index')->name('admin.operators.index');
+        Route::get('operators/create', 'create')->name('admin.operators.create');
+        Route::post('operators/create', 'store')->name('admin.operators.store');
+        Route::get('operators/edit/{operator:employee_number}', 'edit')->name('admin.operators.edit');
+        Route::put('operators/edit/{operator:employee_number}', 'update')->name('admin.operators.update');
+        Route::delete('operators/destroy/{operator:employee_number}', 'destroy')->name('admin.operators.destroy');
     });
 });
