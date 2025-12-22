@@ -27,17 +27,17 @@ class OperatorController extends Controller
     public function index(): Response
     {
         $operators = Operator::query()
-            ->select(['operators.id', 'operators.user_id','operators.fakultas_id', 'operators.departement_id', 'operators.employee_number', 'operators.created_at'])
+            ->select(['operators.id', 'operators.user_id', 'operators.fakultas_id', 'operators.departement_id', 'operators.employee_number', 'operators.created_at'])
             ->filter(request()->only(['search']))
-            ->sorting(request()->only(['field','direction']))
-            ->whereHas('user', function($query){
-                $query->whereHas('roles',fn($query) => 
+            ->sorting(request()->only(['field', 'direction']))
+            ->whereHas('user', function ($query) {
+                $query->whereHas('roles', fn($query) =>
                 $query->where('name', 'Operator'));
             })
             ->with(['user', 'faculty', 'departemen'])
             ->paginate(request()->load ?? 10);
 
-        return inertia('Admin/Operators/Index',[
+        return inertia('Admin/Operators/Index', [
             'page_settings' => [
                 'title' => 'Halaman Dashboard Operator',
                 'subtitle' => 'Halaman ini menampilkan data-data operator di universitas.'
@@ -60,7 +60,7 @@ class OperatorController extends Controller
         return inertia('Admin/Operators/Create', [
             'page_settings' => [
                 'title' => 'Tambah Operator',
-                'subtitle'=> 'Halaman ini digunakan untuk menambahkan data operator',
+                'subtitle' => 'Halaman ini digunakan untuk menambahkan data operator',
                 'method' => 'POST',
                 'action' => route('admin.operators.store')
             ],
@@ -103,6 +103,70 @@ class OperatorController extends Controller
         } catch (Throwable $e) {
             // rollback ketika gagal
             DB::rollBack();
+            flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
+            return to_route('admin.operators.index');
+        }
+    }
+
+    public function edit(Operator $operator) : Response
+    {
+        return inertia('Admin/Operators/Edit', [
+            'page_settings' => [
+                'title' => 'Dashboard Edit Operator',
+                'subtitle' => 'Halaman ini digunakan untuk mengedit data operator',
+                'method' => 'PUT',
+                'action' => route('admin.operators.update', $operator)
+            ],
+            'operator' => $operator->load('user'),
+            'faculties' => Fakultas::query()->select(['id', 'name'])->orderBy('name')->get()->map(fn($item) => [
+                'value' => $item->id,
+                'label' => $item->name]
+            ),
+            'departements' => Departemen::query()->select(['id', 'name'])->orderBy('name')->get()->map(fn($item) => [
+                'value' => $item->id,
+                'label' => $item->name
+            ]),
+        ]);
+    }
+
+    public function update(OperatorRequest $request, Operator $operator): RedirectResponse
+    {
+        try {
+            // memulai transaksi data
+            DB::beginTransaction();
+            $operator->update([
+                'fakultas_id' => $request->fakultas_id,
+                'departement_id' => $request->departement_id,
+                'employee_number' => $request->employee_number
+            ]);
+            $operator->user()->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'avatar' => $this->update_file($request, $operator->user, 'avatar', 'users'),
+            ]);
+            // commit data
+            DB::commit();
+            flashMessage(MessageTypes::UPDATED->message('Operator'));
+            return to_route('admin.operators.index');
+            // validasi data user ke relasi operator
+        } catch (Throwable $e) {
+            // rollback ketika gagal
+            DB::rollBack();
+            flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
+            return to_route('admin.operators.index');
+        }
+    }
+
+    public function destroy(Operator $operator) : RedirectResponse
+    {
+        try {
+            // delete file
+            $this->delete_file($operator, 'avatar');
+            $operator->delete();
+            flashMessage(MessageTypes::DELETED->message('Operator'));
+            return to_route('admin.operators.index');
+        } catch (Throwable $e) {
             flashMessage(MessageTypes::ERROR->message($e->getMessage()), 'error');
             return to_route('admin.operators.index');
         }
