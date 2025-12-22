@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AcademicYearController;
 use App\Http\Controllers\Admin\ClassromStudentController;
+use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\DashboardAdminController;
 use App\Http\Controllers\Admin\DepartementController;
 use App\Http\Controllers\Admin\FakultasController;
@@ -47,7 +48,7 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
     });
 
     // route kelas
-    Route::controller(KelasController::class)->group(function(){
+    Route::controller(KelasController::class)->group(function () {
         Route::get('kelas', 'index')->name('admin.kelas.index');
         Route::get('kelas/create', 'create')->name('admin.kelas.create');
         Route::post('kelas/create', 'store')->name('admin.kelas.store');
@@ -57,7 +58,7 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
     });
 
     // Route Role
-    Route::controller(RoleController::class)->group(function(){
+    Route::controller(RoleController::class)->group(function () {
         Route::get('roles', 'index')->name('admin.roles.index');
         Route::get('roles/create', 'create')->name('admin.roles.create');
         Route::post('roles/create', 'store')->name('admin.roles.store');
@@ -67,7 +68,7 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
     });
 
     // Route golongan ukt
-    Route::controller(FeeGroupController::class)->group(function(){
+    Route::controller(FeeGroupController::class)->group(function () {
         Route::get('fee-groups', 'index')->name('admin.fee-groups.index');
         Route::get('fee-groups/create', 'create')->name('admin.fee-groups.create');
         Route::post('fee-groups/create', 'store')->name('admin.fee-groups.store');
@@ -77,7 +78,7 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
     });
 
     // Route mahasiswa
-    Route::controller(StudentController::class)->group(function(){
+    Route::controller(StudentController::class)->group(function () {
         Route::get('students', 'index')->name('admin.students.index');
         Route::get('students/create', 'create')->name('admin.students.create');
         Route::post('students/create', 'store')->name('admin.students.store');
@@ -87,14 +88,14 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
     });
 
     // route classrom student
-    Route::controller(ClassromStudentController::class)->group(function(){
+    Route::controller(ClassromStudentController::class)->group(function () {
         Route::get('classroms/students/{classroom:slug}', 'index')->name('admin.classroms-students.index');
         Route::put('classroms/students/{classroom:slug}/sync', 'sync')->name('admin.classroms-students.sync');
         Route::delete('classroms/students/{classroom:slug}/destroy/{student:students_number}', 'destroy')->name('admin.classroms-students.destroy');
     });
 
     // route admin dosen
-    Route::controller(TeacherController::class)->group(function() {
+    Route::controller(TeacherController::class)->group(function () {
         Route::get('teachers', 'index')->name('admin.teachers.index');
         Route::get('teachers/create', 'create')->name('admin.teachers.create');
         Route::post('teachers/create', 'store')->name('admin.teachers.store');
@@ -103,13 +104,23 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::delete('teachers/destroy/{teacher:teachers_number}', 'destroy')->name('admin.teachers.destroy');
     });
 
-     // route admin controller
-    Route::controller(OperatorController::class)->group(function() {
+    // route admin controller
+    Route::controller(OperatorController::class)->group(function () {
         Route::get('operators', 'index')->name('admin.operators.index');
         Route::get('operators/create', 'create')->name('admin.operators.create');
         Route::post('operators/create', 'store')->name('admin.operators.store');
         Route::get('operators/edit/{operator:employee_number}', 'edit')->name('admin.operators.edit');
         Route::put('operators/edit/{operator:employee_number}', 'update')->name('admin.operators.update');
         Route::delete('operators/destroy/{operator:employee_number}', 'destroy')->name('admin.operators.destroy');
+    });
+
+    // route admin mata kuliah
+    Route::controller(CourseController::class)->group(function () {
+        Route::get('courses', 'index')->name('admin.courses.index');
+        Route::get('courses/create', 'create')->name('admin.courses.create');
+        Route::post('courses/create', 'store')->name('admin.courses.store');
+        Route::get('courses/edit/{course:code}',  'edit')->name('admin.courses.edit');
+        Route::put('courses/edit/{course:code}', 'update')->name('admin.courses.update');
+        Route::delete('courses/destroy/{course:code}', 'destroy')->name('admin.courses.destroy');
     });
 });

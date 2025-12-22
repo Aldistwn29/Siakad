@@ -117,7 +117,7 @@ export default function SidebarResponsive({ auth, url }) {
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Jadwal</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.courses.index')}
                             active={url.startsWith('/admin/courses')}
                             title="Mata Kuliah"
                             icon={IconBook}
