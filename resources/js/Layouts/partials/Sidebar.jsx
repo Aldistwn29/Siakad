@@ -29,20 +29,20 @@ export default function Sidebar({ auth, url }) {
     const getRoleName = () => auth?.roles?.[0] || 'User';
 
     return (
-        <nav className="flex flex-col flex-1">
-            <ul className="flex flex-col flex-1" role="list">
+        <nav className="flex flex-1 flex-col">
+            <ul className="flex flex-1 flex-col" role="list">
                 <li className="-mx-6">
                     <Link
                         href="#"
-                        className="flex items-center px-6 py-3 text-sm font-semibold leading-6 text-white gap-x-4 hover:bg-blue-800"
+                        className="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-white hover:bg-blue-800"
                     >
                         <Avatar>
                             <AvatarImage src={auth.avatar} />
                             <AvatarFallback>{auth.name.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                         <div className="flex flex-col text-left">
-                            <span className="font-bold truncate">{auth.name}</span>
-                            <span className="text-xs truncate">{getRoleName()}</span>
+                            <span className="truncate font-bold">{auth.name}</span>
+                            <span className="truncate text-xs">{getRoleName()}</span>
                         </div>
                     </Link>
                     {/* Menu items */}
