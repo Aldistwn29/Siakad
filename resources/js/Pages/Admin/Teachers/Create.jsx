@@ -1,16 +1,16 @@
-import HeaderTitle from "@/Components/HeaderTitle";
-import InputError from "@/Components/InputError";
-import { Button } from "@/Components/ui/button";
-import { Card, CardContent } from "@/Components/ui/card";
-import { Input } from "@/Components/ui/input";
-import { Label } from "@/Components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/Components/ui/select";
-import AppLayout from "@/Layouts/AppLayout";
-import useFlashMessage from "@/lib/utils";
-import { Link, useForm } from "@inertiajs/react";
-import { IconArrowLeft, IconRefresh, IconUsersGroup } from "@tabler/icons-react";
-import { useRef } from "react";
-import { toast } from "sonner";
+import HeaderTitle from '@/Components/HeaderTitle';
+import InputError from '@/Components/InputError';
+import { Button } from '@/Components/ui/button';
+import { Card, CardContent } from '@/Components/ui/card';
+import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/Components/ui/select';
+import AppLayout from '@/Layouts/AppLayout';
+import useFlashMessage from '@/lib/utils';
+import { Link, useForm } from '@inertiajs/react';
+import { IconArrowLeft, IconRefresh, IconUsersGroup } from '@tabler/icons-react';
+import { useRef } from 'react';
+import { toast } from 'sonner';
 
 export default function Create(props) {
     const inputAvatar = useRef(null);
@@ -32,7 +32,7 @@ export default function Create(props) {
     // handle submit
     const onHandleSumbit = (e) => {
         e.preventDefault();
-        console.log(data)
+        console.log(data);
         post(props.page_settings.action, {
             forceFormData: true,
             preserveScroll: true,
@@ -50,8 +50,8 @@ export default function Create(props) {
     };
 
     return (
-        <div className="flex flex-col w-full pb-32">
-            <div className="flex flex-col items-start justify-between mb-8 gap-y-4 lg:flex-row lg:items-center">
+        <div className="flex w-full flex-col pb-32">
+            <div className="mb-8 flex flex-col items-start justify-between gap-y-4 lg:flex-row lg:items-center">
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
@@ -139,8 +139,9 @@ export default function Create(props) {
                                 >
                                     <SelectTrigger>
                                         <SelectValue>
-                                            {props.departements.find((departemen) => departemen.value == data.departement_id)
-                                                ?.label ?? 'Pilih Program Studi'}
+                                            {props.departements.find(
+                                                (departemen) => departemen.value == data.departement_id,
+                                            )?.label ?? 'Pilih Program Studi'}
                                         </SelectValue>
                                     </SelectTrigger>
                                     <SelectContent>
@@ -193,7 +194,7 @@ export default function Create(props) {
                                 {errors.avatar && <InputError message={errors.avatar} />}
                             </div>
                         </div>
-                        <div className="flex flex-col gap-2 mt-8 lg:flex-row lg:justify-end">
+                        <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
                             <Button variant="red" size="xl" type="button" onClick={handleReset}>
                                 <IconRefresh className="size-4" />
                                 Reset
@@ -210,4 +211,4 @@ export default function Create(props) {
     );
 }
 
-Create.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />
+Create.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;

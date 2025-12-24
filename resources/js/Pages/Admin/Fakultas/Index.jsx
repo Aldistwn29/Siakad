@@ -59,7 +59,7 @@ export default function Index(props) {
             preserveState: true,
             replace: true,
         });
-    }
+    };
 
     // --- Reset filter
     const handleReset = () => {
@@ -159,7 +159,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() =>  onSortTable('name')}
+                                                onClick={() => onSortTable('name')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
@@ -171,7 +171,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() =>  onSortTable('code')}
+                                                onClick={() => onSortTable('code')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
@@ -183,7 +183,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() =>  onSortTable('logo')}
+                                                onClick={() => onSortTable('logo')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />
@@ -195,7 +195,7 @@ export default function Index(props) {
                                             <Button
                                                 variant="ghost"
                                                 className="group inline-flex"
-                                                onClick={() =>  onSortTable('created_at')}
+                                                onClick={() => onSortTable('created_at')}
                                             >
                                                 <span className="ml-2 flex-none rounded text-muted-foreground">
                                                     <IconArrowsDownUp className="size-4" />

@@ -8,20 +8,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import AppLayout from '@/Layouts/AppLayout';
 import useFlashMessage from '@/lib/utils';
 import { Link, useForm } from '@inertiajs/react';
-import { IconArrowLeft, IconRefresh, IconUsers } from '@tabler/icons-react';
-import { useRef } from 'react';
+import { IconArrowLeft, IconBook, IconRefresh } from '@tabler/icons-react';
 import { toast } from 'sonner';
 
-export default function Create(props) {
-    const inputAvatar = useRef(null);
+export default function Edit(props) {
     const { data, setData, post, processing, errors, reset } = useForm({
-        fakultas_id: '',
-        departement_id: '',
-        name: '',
-        email: '',
-        password: '',
-        avatar: null,
-        employee_number: '',
+        fakultas_id: props.course.fakultas_id ?? null,
+        departemen_id: props.course.departemen_id ?? null,
+        teacher_id: props.course.teacher_id ?? null,
+        name: props.course.name ?? '',
+        code: props.course.code ?? '',
+        credit: props.course.credit ?? 1,
+        semester: props.course.semester ?? 1,
         _method: props.page_settings.method,
     });
 
@@ -45,7 +43,6 @@ export default function Create(props) {
     // handle reset
     const handleReset = () => {
         reset();
-        inputAvatar.current.value = null;
     };
 
     return (
@@ -54,10 +51,10 @@ export default function Create(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconUsers}
+                    icon={IconBook}
                 />
                 <Button variant="orange" className="w-full lg:w-auto" size="xl" asChild>
-                    <Link href={route('admin.operators.index')}>
+                    <Link href={route('admin.courses.index')}>
                         <IconArrowLeft className="size-4" />
                         Kembali
                     </Link>
@@ -67,45 +64,6 @@ export default function Create(props) {
                 <CardContent className="px-6">
                     <form onSubmit={onHandleSumbit}>
                         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:p-3">
-                            {/* Name */}
-                            <div className="col-span-full">
-                                <Label htmlFor="name">Name</Label>
-                                <Input
-                                    type="text"
-                                    name="name"
-                                    id="name"
-                                    value={data.name}
-                                    placeholder="Masukkan Nama Anda"
-                                    onChange={onHandleChange}
-                                />
-                                {errors.name && <InputError message={errors.name} />}
-                            </div>
-                            {/* Email */}
-                            <div>
-                                <Label htmlFor="email">Email</Label>
-                                <Input
-                                    type="text"
-                                    name="email"
-                                    id="email"
-                                    value={data.email}
-                                    placeholder="Masukkan Email Anda"
-                                    onChange={onHandleChange}
-                                />
-                                {errors.email && <InputError message={errors.email} />}
-                            </div>
-                            {/* Password */}
-                            <div>
-                                <Label htmlFor="password">Password</Label>
-                                <Input
-                                    type="text"
-                                    id="password"
-                                    name="password"
-                                    value={data.password}
-                                    placeholder="Masukkan password Anda"
-                                    onChange={onHandleChange}
-                                />
-                                {errors.password && <InputError message={errors.password} />}
-                            </div>
                             {/* Nama fakultas */}
                             <div className="col-span-full">
                                 <Label htmlFor="fakultas_id">Nama Fakultas</Label>
@@ -129,17 +87,17 @@ export default function Create(props) {
                                 </Select>
                                 {errors.fakultas_id && <InputError message={errors.fakultas_id} />}
                             </div>
-                            {/* Nama Departemen */}
+                            {/* Nama Program studi */}
                             <div className="col-span-full">
-                                <Label htmlFor="departement_id">Nama Program Studi</Label>
+                                <Label htmlFor="departemen_id">Nama Program Studi</Label>
                                 <Select
-                                    defaultValue={String(data.departement_id)}
-                                    onValueChange={(value) => setData('departement_id', value)}
+                                    defaultValue={String(data.departemen_id)}
+                                    onValueChange={(value) => setData('departemen_id', value)}
                                 >
                                     <SelectTrigger>
                                         <SelectValue>
                                             {props.departements.find(
-                                                (departemen) => departemen.value == data.departement_id,
+                                                (departemen) => departemen.value == data.departemen_id,
                                             )?.label ?? 'Pilih Program Studi'}
                                         </SelectValue>
                                     </SelectTrigger>
@@ -151,33 +109,82 @@ export default function Create(props) {
                                         ))}
                                     </SelectContent>
                                 </Select>
-                                {errors.departement_id && <InputError message={errors.departement_id} />}
+                                {errors.departemen_id && <InputError message={errors.departemen_id} />}
                             </div>
-                            {/* Nomer Induk Karyawan */}
+                            {/* Nama Dosen */}
                             <div className="col-span-full">
-                                <Label htmlFor="employee_number">Nomer Induk Karyawan</Label>
+                                <Label htmlFor="teacher_id">Nama Dosen</Label>
+                                <Select
+                                    defaultValue={String(data.teacher_id)}
+                                    onValueChange={(value) => setData('teacher_id', value)}
+                                >
+                                    <SelectTrigger>
+                                        <SelectValue>
+                                            {props.teachers.find((teacher) => teacher.value == data.teacher_id)
+                                                ?.label ?? 'Pilih Dosen'}
+                                        </SelectValue>
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {props.teachers.map((teacher, index) => (
+                                            <SelectItem key={index} value={teacher.value}>
+                                                {teacher.label}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
+                                {errors.teacher_id && <InputError message={errors.teacher_id} />}
+                            </div>
+                            {/* code mata kuliah */}
+                            <div className="col-span-full">
+                                <Label htmlFor="code">Nomor mata kuliah</Label>
                                 <Input
                                     type="text"
-                                    id="employee_number"
-                                    name="employee_number"
-                                    value={data.employee_number}
-                                    placeholder="Masukkan Nomer Induk Karyawan Anda"
+                                    name="code"
+                                    id="code"
+                                    value={data.code}
+                                    placeholder="Masukkan code matakuliah"
                                     onChange={onHandleChange}
                                 />
-                                {errors.employee_number && <InputError message={errors.employee_number} />}
+                                {errors.code && <InputError message={errors.code} />}
                             </div>
-                            {/* Avatar */}
+                            {/* Nama mata kuliah */}
                             <div className="col-span-full">
-                                <Label htmlFor="avatar">Avatar</Label>
+                                <Label htmlFor="name">Name</Label>
                                 <Input
-                                    type="file"
-                                    id="avatar"
-                                    name="avatar"
-                                    placeholder="Masukkan gelas akademik anda"
-                                    onChange={(e) => setData(e.target.name, e.target.files[0])}
-                                    ref={inputAvatar}
+                                    type="text"
+                                    name="name"
+                                    id="name"
+                                    value={data.name}
+                                    placeholder="Masukkan Nama Anda"
+                                    onChange={onHandleChange}
                                 />
-                                {errors.avatar && <InputError message={errors.avatar} />}
+                                {errors.name && <InputError message={errors.name} />}
+                            </div>
+                            {/* Satuan kredit semester */}
+                            <div className="col-span-full">
+                                <Label htmlFor="credit">Satuan kredit semester(SKS)</Label>
+                                <Input
+                                    type="number"
+                                    name="credit"
+                                    id="credit"
+                                    value={data.credit}
+                                    placeholder="Masukkan Satuan kredit semester(SKS)"
+                                    onChange={onHandleChange}
+                                />
+                                {errors.credit && <InputError message={errors.credit} />}
+                            </div>
+                            {/* Semester */}
+                            <div className="col-span-full">
+                                <Label htmlFor="semester">Semester</Label>
+                                <Input
+                                    type="number"
+                                    name="semester"
+                                    id="semester"
+                                    value={data.semester}
+                                    placeholder="Masukkan Semester"
+                                    onChange={onHandleChange}
+                                />
+                                {errors.semester && <InputError message={errors.semester} />}
                             </div>
                         </div>
                         <div className="mt-8 flex flex-col gap-2 lg:flex-row lg:justify-end">
@@ -197,4 +204,4 @@ export default function Create(props) {
     );
 }
 
-Create.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
+Edit.layout = (page) => <AppLayout children={page} title={page.props.page_settings.title} />;
