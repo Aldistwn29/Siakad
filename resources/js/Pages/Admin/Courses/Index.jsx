@@ -12,33 +12,25 @@ import UseFilter from '@/hooks/useFilter';
 import AppLayout from '@/Layouts/AppLayout';
 import { deleteAction, formatDateIndo } from '@/lib/utils';
 import { Link, router } from '@inertiajs/react';
-import {
-    IconArrowsDownUp,
-    IconDoor,
-    IconPencil,
-    IconPlus,
-    IconRefresh,
-    IconTrash,
-    IconUsersGroup,
-} from '@tabler/icons-react';
+import { IconArrowsDownUp, IconBook, IconPencil, IconPlus, IconRefresh, IconTrash } from '@tabler/icons-react';
 import { useState } from 'react';
 
 export default function Index(props) {
-    const { data: classroms, meta, links } = props.classroms;
+    const { data: courses, meta, links } = props.courses;
     const [params, setParams] = useState(props.state);
     // --- Hooks Filter (debounce 300ms)
     UseFilter({
-        route: route('admin.kelas.index'),
+        route: route('admin.courses.index'),
         values: params,
-        only: ['classroms'],
+        only: ['courses'],
     });
 
     const onSortable = (field) => {
         const direction = params.field === field && params.direction === 'asc' ? 'desc' : 'asc';
         const updated = { ...params, field, direction };
 
-        router.get(route('admin.kelas.index'), updated, {
-            only: ['classroms'],
+        router.get(route('admin.courses.index'), updated, {
+            only: ['courses'],
             preserveScroll: true,
             preserveState: true,
             replace: true,
@@ -48,8 +40,8 @@ export default function Index(props) {
     const handleReset = () => {
         const reset = { ...props.state, search: '', field: '', direction: '', load: 10 };
         setParams(reset);
-        router.get(route('admin.kelas.index'), reset, {
-            only: ['classroms'],
+        router.get(route('admin.courses.index'), reset, {
+            only: ['courses'],
             preserveScroll: true,
             preserveState: true,
             replace: true,
@@ -67,11 +59,10 @@ export default function Index(props) {
                 <HeaderTitle
                     title={props.page_settings.title}
                     subtitle={props.page_settings.subtitle}
-                    icon={IconDoor}
+                    icon={IconBook}
                 />
-                {/* Tambah Mahasiswa */}
                 <Button asChild variant="orange" size="xl" className="w-full lg:w-auto">
-                    <Link href={route('admin.kelas.create')}>
+                    <Link href={route('admin.courses.create')}>
                         <IconPlus className="size-4" />
                         Tambah
                     </Link>
@@ -83,7 +74,7 @@ export default function Index(props) {
                     <div className="flex w-full flex-col items-center gap-4 px-6 py-4 lg:flex-row">
                         <Input
                             className="w-full sm:w-1/3"
-                            placeholder="Cari berdasarkan program studi..."
+                            placeholder="Cari berdasarkan nama mata kuliah.."
                             value={params?.search || ''}
                             onChange={handleSearch}
                         />
@@ -114,23 +105,61 @@ export default function Index(props) {
                 </CardHeader>
 
                 <CardContent className="pb-0 [&-td]:whitespace-nowrap [&-td]:px-6 [&-th]:px-6">
-                    {classroms.length === 0 ? (
+                    {courses.length === 0 ? (
                         <EmptyState
-                            title="Tidak ada data kelas"
-                            subtitle="Silahkan untuk menambahkan data kelas baru"
-                            icon={IconDoor}
+                            title="TIDAK ADA DATA MATA KULIAH"
+                            subtitle="Silahkan untuk menambahkan data ma baru"
+                            icon={IconBook}
                         />
                     ) : (
                         <Table className="w-full">
                             <TableHeader>
                                 <TableRow>
-                                    <TableHead>#</TableHead>
+                                    {/* id */}
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('id')}
+                                        >
+                                            #
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    {/* Nomor mata kuliah*/}
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('code')}
+                                        >
+                                            Nomor mata kuliah
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    {/* Nama Matakuliah */}
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('name')}
+                                        >
+                                            Nama Matakuliah
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
                                     {/* Fakultas */}
                                     <TableHead>
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
-                                            onClick={() => onSortable('facultas_id')}
+                                            onClick={() => onSortable('fakultas_id')}
                                         >
                                             Fakultas
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
@@ -138,40 +167,53 @@ export default function Index(props) {
                                             </span>
                                         </Button>
                                     </TableHead>
-                                    {/* Program Studi */}
+                                    {/* Nama program Studi*/}
                                     <TableHead>
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
                                             onClick={() => onSortable('departemen_id')}
                                         >
-                                            Program Studi
+                                            Program studi
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
-                                    {/* Tahun ajaran */}
+                                    {/* Nama Dosen*/}
                                     <TableHead>
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
-                                            onClick={() => onSortable('academic_year_id')}
+                                            onClick={() => onSortable('teacher_id')}
                                         >
-                                            Tahun Ajaran
+                                            Nama Dosen
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
                                         </Button>
                                     </TableHead>
-                                    {/* Nama */}
+                                    {/* Satuan credit semester (SKS)*/}
                                     <TableHead>
                                         <Button
                                             variant="ghost"
                                             className="group inline-flex"
-                                            onClick={() => onSortable('name')}
+                                            onClick={() => onSortable('credit')}
                                         >
-                                            Nama
+                                            Satuan credit semester (SKS)
+                                            <span className="ml-2 flex-none rounded text-muted-foreground">
+                                                <IconArrowsDownUp className="size-4" />
+                                            </span>
+                                        </Button>
+                                    </TableHead>
+                                    {/* Semester*/}
+                                    <TableHead>
+                                        <Button
+                                            variant="ghost"
+                                            className="group inline-flex"
+                                            onClick={() => onSortable('semester')}
+                                        >
+                                            Semester
                                             <span className="ml-2 flex-none rounded text-muted-foreground">
                                                 <IconArrowsDownUp className="size-4" />
                                             </span>
@@ -194,23 +236,29 @@ export default function Index(props) {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {classroms.map((classrom, index) => (
+                                {courses.map((course, index) => (
                                     <TableRow key={index}>
                                         <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
-                                        <TableCell>{classrom.facultas_id?.name}</TableCell>
-                                        <TableCell>{classrom.departemen_id?.name}</TableCell>
-                                        <TableCell>{classrom.acdemic_year_id?.name}</TableCell>
-                                        <TableCell>{classrom.name}</TableCell>
-                                        <TableCell>{formatDateIndo(classrom.created_at)}</TableCell>
+                                        {/* Kode mata kuliah */}
+                                        <TableCell>{course.code}</TableCell>
+                                        {/* Nama mata kuliah */}
+                                        <TableCell>{course.name}</TableCell>
+                                        {/* Nama fakultas */}
+                                        <TableCell>{course.faculty?.name}</TableCell>
+                                        {/* Nama program studi */}
+                                        <TableCell>{course.departemen?.name}</TableCell>
+                                        {/* Nama dosen*/}
+                                        <TableCell>{course.teacher?.name}</TableCell>
+                                        {/* Credit*/}
+                                        <TableCell>{course.credit}</TableCell>
+                                        {/* Semester*/}
+                                        <TableCell>{course.semester}</TableCell>
+                                        {/* Dibuat pada */}
+                                        <TableCell>{formatDateIndo(course.created_at)}</TableCell>
                                         <TableCell>
                                             <div className="flex items-center gap-x-1">
-                                                <Button variant="purple" size="sm" asChild>
-                                                    <Link href={route('admin.classroms-students.index', [classrom])}>
-                                                        <IconUsersGroup className="size-4" />
-                                                    </Link>
-                                                </Button>
                                                 <Button variant="blue" size="sm" asChild>
-                                                    <Link href={route('admin.kelas.edit', [classrom])}>
+                                                    <Link href={route('admin.courses.edit', [course])}>
                                                         <IconPencil className="size-4" />
                                                     </Link>
                                                 </Button>
@@ -221,7 +269,7 @@ export default function Index(props) {
                                                         </Button>
                                                     }
                                                     action={() =>
-                                                        deleteAction(route('admin.kelas.destroy', [classrom]))
+                                                        deleteAction(route('admin.courses.destroy', [course]))
                                                     }
                                                 />
                                             </div>
@@ -236,7 +284,7 @@ export default function Index(props) {
                 <CardFooter className="flex w-full flex-col items-center justify-between gap-y-2 border-t py-3 lg:flex-row">
                     <p className="text-sm text-muted-foreground">
                         Menampilkan <span className="font-medium text-blue-600">{meta.from ?? 0}</span> dari{' '}
-                        {meta.total} Kelas
+                        {meta.total} operator
                     </p>
                     <div className="overflow-x-auto">
                         {meta.has_pages && <PaginationTable meta={meta} links={links} />}

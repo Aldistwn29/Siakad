@@ -50,8 +50,8 @@ export default function SidebarResponsive({ auth, url }) {
         return false;
     };
     return (
-        <div className="flex flex-col flex-1 mt-4">
-            <ul className="flex flex-col flex-1" role="list">
+        <div className="mt-4 flex flex-1 flex-col">
+            <ul className="flex flex-1 flex-col" role="list">
                 {/* Menu items */}
                 {/* Role:Admin */}
                 {hasRole('Admin') && (
@@ -117,7 +117,7 @@ export default function SidebarResponsive({ auth, url }) {
 
                         <div className="px-3 py-2 text-xs font-medium text-white">Jadwal</div>
                         <NavLink
-                            url="#"
+                            url={route('admin.courses.index')}
                             active={url.startsWith('/admin/courses')}
                             title="Mata Kuliah"
                             icon={IconBook}
