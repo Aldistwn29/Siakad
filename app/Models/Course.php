@@ -27,6 +27,7 @@ class Course extends Model
     {
         return $this->belongsTo(Departemen::class, 'departemen_id', 'id');
     }
+    
 
     public function academicYear()
     {
