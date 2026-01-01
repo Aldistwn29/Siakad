@@ -15,8 +15,8 @@ enum ScheduleDays: string
     public static function options()
     {
         return collect(self::cases())->map(fn($item) => [
-            'value' => $this->value,
-            'label' => $this->value
+            'value' => $item->value,
+            'label' => $item->value
         ])->values()->toArray();
     }
 }

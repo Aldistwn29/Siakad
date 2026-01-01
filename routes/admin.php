@@ -120,18 +120,18 @@ Route::prefix('admin')->middleware(['auth', 'role:Admin'])->group(function () {
         Route::get('courses', 'index')->name('admin.courses.index');
         Route::get('courses/create', 'create')->name('admin.courses.create');
         Route::post('courses/create', 'store')->name('admin.courses.store');
-        Route::get('courses/edit/{course:code}',  'edit')->name('admin.courses.edit');
+        Route::get('courses/edit/{course:code}', 'edit')->name('admin.courses.edit');
         Route::put('courses/edit/{course:code}', 'update')->name('admin.courses.update');
         Route::delete('courses/destroy/{course:code}', 'destroy')->name('admin.courses.destroy');
     });
 
-     // route admin mata kuliah
+    // route admin mata kuliah
     Route::controller(SchedulesController::class)->group(function () {
         Route::get('schedules', 'index')->name('admin.schedules.index');
         Route::get('schedules/create', 'create')->name('admin.schedules.create');
         Route::post('schedules/create', 'store')->name('admin.schedules.store');
-        Route::get('schedules/edit/{schedule:code}',  'edit')->name('admin.schedules.edit');
-        Route::put('schedules/edit/{schedule:code}', 'update')->name('admin.schedules.update');
-        Route::delete('courses/destroy/{schedule:code}', 'destroy')->name('admin.courses.destroy');
+        Route::get('schedules/edit/{schedule}', 'edit')->name('admin.schedules.edit');
+        Route::put('schedules/edit/{schedule}', 'update')->name('admin.schedules.update');
+        Route::delete('schedules/destroy/{schedule}', 'destroy')->name('admin.schedules.destroy');
     });
 });

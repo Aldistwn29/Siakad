@@ -28,7 +28,6 @@ import { useState } from 'react';
 
 export default function Index(props) {
     const { data: schedules, meta, links } = props.schedules;
-    // console.log(operators);
     const [params, setParams] = useState(props.state);
     // --- Hooks Filter (debounce 300ms)
     UseFilter({
@@ -278,23 +277,23 @@ export default function Index(props) {
                                     <TableRow key={index}>
                                         <TableCell>{index + 1 + (meta.current_page - 1) * meta.per_page}</TableCell>
                                         {/* nama fakultas */}
-                                        <TableCell>{schedule.faculty.name}</TableCell>
+                                        <TableCell>{schedule.faculty?.name}</TableCell>
                                         {/* Nama program studi */}
                                         <TableCell>{schedule.departemen?.name}</TableCell>
-                                        {/* Nama mata kuliah */}
-                                        <TableCell>{schedule.course?.name}</TableCell>
                                         {/* Nama kelas */}
                                         <TableCell>{schedule.classroom?.name}</TableCell>
+                                         {/* Nama mata kuliah */}
+                                        <TableCell>{schedule.course?.name}</TableCell>
                                         {/*  tahun ajaran  */}
                                         <TableCell>{schedule.academicYear?.name}</TableCell>
                                         {/*  jam mulai  */}
-                                        <TableCell>{schedule.start_date}</TableCell>
+                                        <TableCell>{schedule.start_time}</TableCell>
                                          {/*  jam berakhir  */}
-                                        <TableCell>{schedule.end_date}</TableCell>
+                                        <TableCell>{schedule.end_time}</TableCell>
                                         {/*  Hari  */}
                                         <TableCell>{schedule.day_of_week}</TableCell>
                                         {/*  Kuota  */}
-                                        <TableCell>{schedule.quote}</TableCell>
+                                        <TableCell>{schedule.qoute}</TableCell>
                                         {/* Dibuat pada */}
                                         <TableCell>{formatDateIndo(schedule.created_at)}</TableCell>
                                         <TableCell>

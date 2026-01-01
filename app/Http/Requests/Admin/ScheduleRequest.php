@@ -25,7 +25,7 @@ class ScheduleRequest extends FormRequest
     {
         return [
             'fakultas_id' => ['required', 'exists:fakultas,id'],
-            'deaprtemen_id' => ['required', 'exists:departemens,id'],
+            'departemen_id' => ['required', 'exists:departemens,id'],
             'kelas_id' => ['required', 'exists:kelas,id'],
             'course_id' => ['required', 'exists:courses,id'],
             'start_time' => ['required'],
@@ -45,7 +45,7 @@ class ScheduleRequest extends FormRequest
             'start_time' => 'Waktu Masuk',
             'end_time' => 'Waktu Keluar',
             'day_of_week' => 'Hari',
-            'quote' => 'Kuota',
+            'qoute' => 'Kuota',
         ];
     }
 }
