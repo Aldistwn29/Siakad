@@ -18,11 +18,11 @@ class Operator extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function faculty()
+    public function fakultas()
     {
         return $this->belongsTo(Fakultas::class, 'fakultas_id');
     }
-    public function departemen()
+    public function departement()
     {
         return $this->belongsTo(Departemen::class, 'departement_id');
     }

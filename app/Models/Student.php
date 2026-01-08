@@ -94,7 +94,7 @@ class Student extends Model
                 'fee_group_id' => $query->join('fee_groups', 'students.fee_group_id', '=', 'fee_groups.id')
                     ->orderBy('fee_groups.group', $sorts['direction']),
                 'kelas_id' => $query->join('kelas', 'students.kelas_id', '=', 'kelas.id')
-                    ->orderBy('kelas.group', $sorts['direction']),
+                    ->orderBy('kelas.name', $sorts['direction']),
                 default => $query->orderBy($sorts['field'], $sorts['direction'])
             };
         });

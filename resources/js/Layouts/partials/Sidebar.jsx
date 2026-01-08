@@ -170,7 +170,7 @@ export default function Sidebar({ auth, url }) {
                             />
                             <div className="px-3 py-2 text-xs font-medium text-white">Pengguna</div>
                             <NavLink
-                                url={route('admin.students.index')}
+                                url={route('operators.students.index')}
                                 active={url.startsWith('/students/dashbord')}
                                 title="Mahasiswa"
                                 icon={IconSchool}
@@ -179,7 +179,7 @@ export default function Sidebar({ auth, url }) {
                                 url="#"
                                 active={url.startsWith('/teachers/dashbord')}
                                 title="Dosen"
-                                icon={IconSchoolOff}
+                                icon={IconUsersGroup}
                             />
                             <div className="px-3 py-2 text-xs font-medium text-white">Akademik</div>
                             <NavLink
