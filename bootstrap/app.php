@@ -19,12 +19,12 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => RoleMiddleware::class
         ]);
 
-        // Apply rate limiting to web routes
+        // Enable default API rate limiting
         $middleware->throttleApi();
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Log exceptions in production without exposing details to users
-        $exceptions->render(function (Throwable $e, $request) {
+        $exceptions->render(function (Throwable $e, \Illuminate\Http\Request $request) {
             // Log the error for debugging
             if (!app()->isLocal()) {
                 \Illuminate\Support\Facades\Log::error('Exception occurred', [

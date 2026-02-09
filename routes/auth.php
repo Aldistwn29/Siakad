@@ -16,13 +16,13 @@ Route::middleware('guest')->group(function () {
         ->name('register');
 
     Route::post('register', [RegisteredUserController::class, 'store'])
-        ->middleware('throttle:5,1'); // Limit registration attempts
+        ->middleware('throttle:5,1'); // Limit to 5 registration attempts per 1 minute
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store'])
-        ->middleware('throttle:5,1'); // Limit login attempts to prevent brute force
+        ->middleware('throttle:5,1'); // Limit to 5 login attempts per 1 minute to prevent brute force
 
     // Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
     //     ->name('password.request');
