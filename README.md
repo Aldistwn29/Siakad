@@ -1,61 +1,179 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Siakad - Academic Information System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive academic information system built with Laravel 12, Inertia.js, and React for managing university/college operations including students, teachers, courses, schedules, and academic records.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- 📚 **Academic Management**: Faculties, Departments, Classes, Courses, and Schedules
+- 👥 **User Management**: Students, Teachers, Operators, and Admins with role-based access control
+- 💰 **Fee Management**: Fee groups and payment tracking
+- 📊 **Academic Records**: Study plans, attendance, grades, and results
+- 🎨 **Modern UI**: Built with React, Inertia.js, and Tailwind CSS
+- 🔒 **Secure**: Role-based permissions, rate limiting, and production-ready security
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend**: Laravel 12, PHP 8.2+
+- **Frontend**: React 18, Inertia.js, Tailwind CSS
+- **Database**: MySQL/PostgreSQL (production), SQLite (development)
+- **Authentication**: Laravel Breeze with Spatie Permissions
 
-## Learning Laravel
+## Quick Start
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Development Setup
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Clone the repository**
+```bash
+git clone https://github.com/Aldistwn29/Siakad.git
+cd Siakad
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Install dependencies and setup**
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+```
 
-## Laravel Sponsors
+3. **Configure database**
+   - For development, SQLite is configured by default
+   - For production, update `.env` with MySQL/PostgreSQL credentials
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Run migrations**
+```bash
+php artisan migrate
+php artisan db:seed  # Optional: seed initial data
+```
 
-### Premium Partners
+5. **Start development servers**
+```bash
+composer run dev
+# This runs: php artisan serve + queue worker + logs + vite dev server
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Or start services individually:
+```bash
+php artisan serve
+npm run dev
+php artisan queue:work
+```
+
+6. **Access the application**
+   - Open http://localhost:8000
+
+## Production Deployment
+
+For production deployment, please refer to [DEPLOYMENT.md](DEPLOYMENT.md) for a comprehensive checklist and guide.
+
+### Quick Production Setup
+
+1. **Environment Configuration**
+```bash
+cp .env.example .env
+# Edit .env and set:
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://your-domain.com
+```
+
+2. **Database Configuration**
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=siakad
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+3. **Install and Build**
+```bash
+composer install --optimize-autoloader --no-dev
+npm install
+npm run build
+```
+
+4. **Setup Application**
+```bash
+php artisan key:generate
+php artisan migrate --force
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+5. **Set Permissions**
+```bash
+chmod -R 755 storage bootstrap/cache
+```
+
+## Security Features
+
+- ✅ **Rate Limiting**: Login and registration attempts are rate-limited to prevent brute force attacks
+- ✅ **Session Encryption**: Session data is encrypted in production
+- ✅ **Error Handling**: Production mode hides sensitive error details from users
+- ✅ **File Upload Validation**: File uploads are limited to 5MB by default
+- ✅ **Role-Based Access Control**: Using Spatie Laravel Permission package
+- ✅ **CSRF Protection**: Built-in Laravel CSRF protection
+- ✅ **Password Hashing**: Secure bcrypt hashing with configurable rounds
+
+## Testing
+
+Run the test suite:
+```bash
+composer run test
+# or
+php artisan test
+```
+
+## Code Quality
+
+Format code with Prettier:
+```bash
+npm run format
+```
+
+Lint PHP code with Laravel Pint:
+```bash
+./vendor/bin/pint
+```
+
+## Project Structure
+
+```
+├── app/
+│   ├── Http/Controllers/     # Controllers organized by role (Admin, Teacher, Student, Operator)
+│   ├── Models/               # Eloquent models
+│   ├── Traits/               # Reusable traits (HasFile)
+│   ├── Enums/                # Enumerations
+│   └── Helpers/              # Helper functions
+├── resources/
+│   └── js/                   # React components and Inertia pages
+├── routes/                   # Route definitions by role
+├── database/
+│   ├── migrations/           # Database migrations
+│   └── seeders/              # Database seeders
+└── config/                   # Configuration files
+```
+
+## Default Roles
+
+The system includes these default roles:
+- **Admin**: Full system access
+- **Operator**: Administrative operations
+- **Teacher**: Course and grade management
+- **Student**: Access to academic records and schedules
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Thank you for considering contributing to Siakad! Please ensure:
+- Code follows existing patterns and conventions
+- Tests are added for new features
+- Security best practices are followed
+- Changes don't introduce unnecessary complexity
 
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
