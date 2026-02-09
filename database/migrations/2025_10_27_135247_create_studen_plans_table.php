@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\StudyPlans;
+use App\Enums\StudyPlansStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('students')->cascadeOnDelete();
             $table->foreignId('academic_year_id')->constrained('academic_years')->cascadeOnDelete();
 
-            $table->string('status')->default(StudyPlans::PENDING->value);
+            $table->string('status')->default(StudyPlansStatus::PENDING->value);
             $table->string('note')->nullable();
             $table->unsignedInteger('semester')->default(1);
             $table->timestamps();
